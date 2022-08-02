@@ -1,0 +1,130 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+@barHeight: 60px;
+.page-content {
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+    display: block;
+}
+
+.tab-bar {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: @barHeight;
+}
+
+
+.line-through {
+    text-decoration: line-through;
+}
+
+// 解决二维码生成在真机尺寸不对的bug
+.tki-qrcode {
+    canvas {
+        width: 150px !important;
+        height: 150px !important;
+    }
+}
+
+// 图片图标
+.common-img-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+    margin-top: 2px;
+}
+
+// cell
+.common-cell /deep/ .van-cell {
+    padding-top: 14px;
+    padding-bottom: 14px;
+    color: #333333;
+    .van-cell__value {
+        color: #333333;
+    }
+}
+
+// cell-group间距
+.common-cell-group {
+    margin-bottom: 8px;
+}
+
+// 分割
+.common-divider {
+    background: #f8f8fa;
+    height: 10px;
+}
+
+// cell底色
+.common-cell-wrap {
+    background: white;
+}
+
+// 主题色
+.theme-color {
+    color: #3FCDA0;
+}
+
+// 全局宫格text打点
+.van-grid-item__content .van-grid-item__text text {
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+// 首页grid文字颜色
+.home-grid-wrap {
+    & /deep/ .van-grid-item__text {
+        margin-top: 12px !important;
+        color: #666 !important;
+    }
+    & /deep/ .van-grid-item__content {
+        padding: 14px 8px !important;
+    }
+}
+
+// 全局tag
+.van-tag {
+    font-size: 10px !important;
+    padding: 1px 8px !important;
+}
+
+// 全局cell右侧link箭头颜色
+.van-cell__right-icon-wrap {
+    color: #ccc !important;
+}
+
+// flex
+.flex-align-center{
+	display: flex;
+	align-items: center;
+}
+.flex-row-center:extend(.flex-align-center){
+	justify-content: center;
+}
+.flex-row-between:extend(.flex-align-center){
+	justify-content: space-between;
+}
+.flex-row-around:extend(.flex-align-center){
+	justify-content: space-around;
+}
+.flex-column-center:extend(.flex-align-center){
+	flex-direction: column;
+	justify-content: center;
+}
+.flex-column-between:extend(.flex-align-center){
+	flex-direction: column;
+	justify-content: space-between;
+}
+.flex-column-around:extend(.flex-align-center){
+	flex-direction: column;
+	justify-content: space-around;
+}
