@@ -1,6 +1,5 @@
-
 <template>
-  <view>
+  <view class="bg-gray-50">
     <van-dialog id="van-dialog" />
     <van-toast id="van-toast" />
     <loading v-show="showLoading" />
@@ -12,7 +11,19 @@
       scroll-y="true"
       :style="{ height: `calc(${getScrollViewHeight()})` }"
     >
-      dddddddd
+      <div class="bg-white flex p-4 rounded-md items-center mb-4">
+        <van-image round width="4rem" height="4rem" fit="cover" src="https://img.yzcdn.cn/vant/cat.jpeg" />
+        <div class="ml-2 flex flex-col justify-between">
+          <div>雪茄</div>
+          <div class="text-gray-400">ID:33333333</div>
+        </div>
+      </div>
+      <van-cell-group inset>
+        <van-cell title="待评价" is-link url="evaluation/index" ><span  class="rounded-full bg-red-500 text-white inline-block px-2 text-sm " >6</span></van-cell>
+        <van-cell title="我的收藏" is-link  url="collect/index"/>
+        <van-cell title="我的关注" is-link url="attention/index" />
+        <van-cell title="历史记录" is-link url="history/index" />
+      </van-cell-group>
     </scroll-view>
   </view>
 </template>
@@ -26,17 +37,13 @@ export default {
   },
   data() {
     return {
-      showLoading: false,
+      showLoading: false
     }
   },
-  onLoad() {
-  },
-  created() {
-  },
+  onLoad() {},
+  created() {},
   methods: {}
 }
 </script>
 
-<style lang="less" scoped>
-
-</style>
+<style lang="less" scoped></style>
