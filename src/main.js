@@ -5,6 +5,8 @@ import NavBar from "@/component/nav-bar";
 import globalMixin from "@/mixin/global-mixin";
 import Loading from '@/component/loading';
 
+import 'windi.css';
+
 Vue.config.productionTip = false;
 Vue.prototype.$store = store;
 Vue.use(globalMixin);

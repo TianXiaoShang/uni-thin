@@ -41,6 +41,7 @@
     },
     "devDependencies": {
         "@babel/runtime": "~7.12.0",
+        "@dcasia/mini-program-tailwind-webpack-plugin": "^1.5.1",
         "@dcloudio/types": "*",
         "@dcloudio/uni-automator": "^2.0.1-33920220208001",
         "@dcloudio/uni-cli-i18n": "^2.0.1-33920220208001",
@@ -57,12 +58,13 @@
         "babel-plugin-import": "^1.13.3",
         "cross-env": "^7.0.3",
         "jest": "^25.5.4",
+        "less": "^3.0.4",
+        "less-loader": "^5.0.0",
         "mini-types": "*",
         "miniprogram-api-typings": "*",
         "postcss-comment": "^2.0.0",
-        "less": "^3.0.4",
-        "less-loader": "^5.0.0",
-        "vue-template-compiler": "^2.6.11"
+        "vue-template-compiler": "^2.6.11",
+        "windicss-webpack-plugin": "^1.7.5"
     },
     "browserslist": [
         "Android >= 4",
