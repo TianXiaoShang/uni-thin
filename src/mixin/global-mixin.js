@@ -21,12 +21,12 @@ export default {
                     triggered: true,
                     currentPage: 0,
                     pageSize: 20,
+                    totalCount: 0,
                     loadDataLoading: false,
                     loading: false,
                     toast: Toast,
                     dialog: Dialog,
                     getSelfInfo,
-                    showMode: false
                 };
             },
             computed: {
@@ -40,13 +40,6 @@ export default {
                 },
                 onRestore() {
                     this.triggered = true; // 需要重置
-                },
-                onScrolltolower() {
-                    if (this.loadDataLoading) {
-                        return;
-                    }
-                    this.loadDataLoading = true;
-                    this.currentPage++;
                 },
                 back(lazy = 0) {
                     setTimeout(() => {

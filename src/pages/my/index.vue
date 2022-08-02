@@ -2,7 +2,7 @@
   <view class="bg-gray-50">
     <van-dialog id="van-dialog" />
     <van-toast id="van-toast" />
-    <loading v-show="showLoading" />
+    <loading v-show="loading" />
     <nav-bar :title="'个人中心'" :backgroundColor="'transparent'" :titlePos="'left'"></nav-bar>
     <scroll-view
       :refresher-enabled="false"

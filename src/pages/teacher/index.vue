@@ -3,7 +3,7 @@
   <view>
     <van-dialog id="van-dialog" />
     <van-toast id="van-toast" />
-    <loading v-show="showLoading" />
+    <loading v-show="loading" />
     <nav-bar :title="'老师'" :backgroundColor="'transparent'" :titlePos="'left'"></nav-bar>
     <scroll-view
       :refresher-enabled="false"
@@ -27,7 +27,6 @@ export default {
   },
   data() {
     return {
-      showLoading: false,
     }
   },
   onLoad() {
