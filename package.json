@@ -30,6 +30,7 @@
         "@dcloudio/uni-quickapp-webview": "^2.0.1-33920220208001",
         "@dcloudio/uni-stat": "^2.0.1-33920220208001",
         "@vue/shared": "^3.2.31",
+        "copy-webpack-plugin": "^5.0.0",
         "core-js": "^3.6.5",
         "express": "^4.17.1",
         "flyio": "^0.6.14",

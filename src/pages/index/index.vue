@@ -13,14 +13,12 @@
       :style="{ height: `calc(${getScrollViewHeight()})` }"
     >
       dddddddd
-      <img :src="img1" alt="">
     </scroll-view>
   </view>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-import img1 from 'image/icon_sy1@2x.png';
 export default {
   name: 'Index',
   computed: {
@@ -28,7 +26,6 @@ export default {
   },
   data() {
     return {
-      img1,
       showLoading: false,
     }
   },
