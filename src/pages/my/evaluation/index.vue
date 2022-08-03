@@ -26,7 +26,7 @@
           </div>
           <van-divider />
           <div class="text-right">
-            <van-button type="primary" size="small" plain>去评价</van-button>
+            <van-button type="primary" size="small" plain @click="handleEdit">去评价</van-button>
           </div>
         </div>
       </div>
@@ -49,7 +49,11 @@ export default {
   },
   onLoad() {},
   created() {},
-  methods: {}
+  methods: {
+    handleEdit() {
+      uni.navigateTo({ url: `edit/index?id=${23}`, fail: (e) => {console.log(e);} })
+    }
+  }
 }
 </script>
 

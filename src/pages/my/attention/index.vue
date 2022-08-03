@@ -16,12 +16,18 @@
       </div>
 
       <div class="m-4">
-        <div class="p-4 rounded-md mb-4 bg-white flex items-center">
-          <div class="mr-2 flex flex-col justify-between flex-1">
-            <div class="font-medium truncate mb-2">ddd</div>
-            <div class=" text-sm text-gray-400">宇宙太阳系地球</div>
+        <div class="p-4 rounded-md mb-4 bg-white flex items-center justify-between">
+          <div class="flex-1 flex">
+            <van-image round width="3rem" height="3rem" fit="cover" src="https://img.yzcdn.cn/vant/cat.jpeg" />
+            <div class="ml-2 flex flex-col justify-between flex-1">
+              <div class="mb-2">
+                <span class="font-medium truncate mr-2">ddd</span>
+                <span class="text-gray-400 text-sm"><van-icon class="text-orange-400 mr-2" name="star" /> 5.0</span>
+              </div>
+              <div class="text-sm text-gray-400">宇宙太阳系地球</div>
+            </div>
           </div>
-          <van-image  width="4rem" height="4rem" fit="cover" src="https://img.yzcdn.cn/vant/cat.jpeg" />
+          <van-button round size="small" plain type="primary">已关注</van-button>
         </div>
       </div>
     </scroll-view>

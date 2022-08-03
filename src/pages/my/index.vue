@@ -19,7 +19,7 @@
         </div>
       </div>
       <van-cell-group inset>
-        <van-cell title="待评价" is-link url="evaluation/index" ><span  class="rounded-full bg-red-500 text-white inline-block px-2 text-sm " >6</span></van-cell>
+        <van-cell title="待评价" is-link url="evaluation/index" ><span  class="rounded-full bg-red-500 text-white inline-flex justify-center items-center text-xs leading-none w-4 h-4" >6</span></van-cell>
         <van-cell title="我的收藏" is-link  url="collect/index"/>
         <van-cell title="我的关注" is-link url="attention/index" />
         <van-cell title="历史记录" is-link url="history/index" />
