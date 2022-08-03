@@ -13,6 +13,9 @@
       "path": "pages/my/evaluation/index"
     },
     {
+      "path": "pages/my/evaluation/edit/index"
+    },
+    {
       "path": "pages/my/collect/index"
     },
     {
