@@ -7,12 +7,12 @@
         <view class="navbar-content" :style="{ height: navBarHeight + 'px', width: contentWidth + 'px' }">
           <!-- 返回按钮 -->
           <view class="back-btn" v-if="showBack && backType == 'arrows'" @click="back">
-            <img v-if="theme === 'light'" :src="ASSETS_BASE_URL + '/root/back-black.png'" alt />
-            <img v-if="theme === 'dark'" :src="ASSETS_BASE_URL + '/root/back-white.png'" alt />
+            <van-icon v-if="theme === 'light'" name="arrow-left" size="22px"/>
+            <van-icon v-if="theme === 'dark'" name="arrow-left" size="22px" color="#fff"/>
           </view>
           <!-- 返回首页按钮 -->
           <view class="back-btn" v-if="showBack && backType == 'home'" @click="backHome">
-            <van-icon name="wap-home" size="22px" color="#666" />
+            <van-icon name="wap-home" size="22px" />
           </view>
           <!-- 中间内容区域 -->
           <view class="content">
@@ -156,8 +156,11 @@ export default {
         .back-btn {
           // padding: 0 5rpx;
           margin-right: 10px;
-          font-size: 0;
+          font-size: 20px;
           width: 24px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
           img {
             width: 12px;
             height: 24px;
