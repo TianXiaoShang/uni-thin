@@ -23,22 +23,22 @@
             :duration="1000"
           >
             <swiper-item @click="toExample">
-              <img style="height: 220rpx" class="w-full rounded-xl overflow-hidden" src="/image/w1.jpg" alt="">
+              <img style="height: 220rpx" class="w-full overflow-hidden" src="https://img.yzcdn.cn/vant/cat.jpeg" alt="">
             </swiper-item>
             <swiper-item @click="toExample">
-              <img style="height: 220rpx" class="w-full rounded-xl overflow-hidden" src="/image/w1.jpg" alt="">
+              <img style="height: 220rpx" class="w-full overflow-hidden" src="https://img.yzcdn.cn/vant/cat.jpeg" alt="">
             </swiper-item>
             <swiper-item @click="toExample">
-              <img style="height: 220rpx" class="w-full rounded-xl overflow-hidden" src="/image/w1.jpg" alt="">
+              <img style="height: 220rpx" class="w-full overflow-hidden" src="https://img.yzcdn.cn/vant/cat.jpeg" alt="">
             </swiper-item>
           </swiper>
         </div>
         <div class="img-list box-border w-full" style="font-size: 0;">
-          <img style="height: 270rpx" class="mt-10px w-full rounded-xl overflow-hidden" src="/image/w2.jpg" alt="">
-          <img style="height: 270rpx" class="mt-10px w-full rounded-xl overflow-hidden" src="/image/w2.jpg" alt="">
-          <img style="height: 270rpx" class="mt-10px w-full rounded-xl overflow-hidden" src="/image/w2.jpg" alt="">
-          <img style="height: 270rpx" class="mt-10px w-full rounded-xl overflow-hidden" src="/image/w2.jpg" alt="">
-          <img style="height: 270rpx" class="mt-10px w-full rounded-xl overflow-hidden" src="/image/w2.jpg" alt="">
+          <img style="height: 270rpx" class="mt-10px w-full rounded-xl overflow-hidden" src="https://img.yzcdn.cn/vant/cat.jpeg" alt="">
+          <img style="height: 270rpx" class="mt-10px w-full rounded-xl overflow-hidden" src="https://img.yzcdn.cn/vant/cat.jpeg" alt="">
+          <img style="height: 270rpx" class="mt-10px w-full rounded-xl overflow-hidden" src="https://img.yzcdn.cn/vant/cat.jpeg" alt="">
+          <img style="height: 270rpx" class="mt-10px w-full rounded-xl overflow-hidden" src="https://img.yzcdn.cn/vant/cat.jpeg" alt="">
+          <img style="height: 270rpx" class="mt-10px w-full rounded-xl overflow-hidden" src="https://img.yzcdn.cn/vant/cat.jpeg" alt="">
         </div>
       </div>
     </scroll-view>

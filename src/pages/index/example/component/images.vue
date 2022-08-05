@@ -2,19 +2,19 @@
   <view class="flex justify-between w-full">
     <div class="w-8/9 flex justify-between flex-wrap mt-15px image-list-wrap">
         <div class="w-1/3 inline-block" use-slot>
-            <div @click="onPreview" class="isImg mb-10px bg-center bg-no-repeat bg-cover" :class="{'longImg': !sudoku}" :style="{'background-image': `url(${'/image/gong.jpg'})`}"></div>
+            <div @click="onPreview" class="isImg mb-10px bg-center bg-no-repeat bg-cover" :class="{'longImg': !sudoku}" :style="{'background-image': `url(${'https://img.yzcdn.cn/vant/cat.jpeg'})`}"></div>
         </div>
         <div class="w-1/3 inline-block" use-slot>
-            <div @click="onPreview" class="isImg mb-10px bg-center bg-no-repeat bg-cover" :class="{'longImg': !sudoku}" :style="{'background-image': `url(${'/image/gong.jpg'})`}"></div>
+            <div @click="onPreview" class="isImg mb-10px bg-center bg-no-repeat bg-cover" :class="{'longImg': !sudoku}" :style="{'background-image': `url(${'https://img.yzcdn.cn/vant/cat.jpeg'})`}"></div>
         </div>
         <div class="w-1/3 inline-block" use-slot>
-            <div @click="onPreview" class="isImg mb-10px bg-center bg-no-repeat bg-cover" :class="{'longImg': !sudoku}" :style="{'background-image': `url(${'/image/gong.jpg'})`}"></div>
+            <div @click="onPreview" class="isImg mb-10px bg-center bg-no-repeat bg-cover" :class="{'longImg': !sudoku}" :style="{'background-image': `url(${'https://img.yzcdn.cn/vant/cat.jpeg'})`}"></div>
         </div>
         <div class="w-1/3 inline-block" use-slot>
-            <div @click="onPreview" class="isImg mb-10px bg-center bg-no-repeat bg-cover" :class="{'longImg': !sudoku}" :style="{'background-image': `url(${'/image/gong.jpg'})`}"></div>
+            <div @click="onPreview" class="isImg mb-10px bg-center bg-no-repeat bg-cover" :class="{'longImg': !sudoku}" :style="{'background-image': `url(${'https://img.yzcdn.cn/vant/cat.jpeg'})`}"></div>
         </div>
         <div class="w-1/3 inline-block" use-slot>
-            <div @click="onPreview" class="isImg mb-10px bg-center bg-no-repeat bg-cover" :class="{'longImg': !sudoku}" :style="{'background-image': `url(${'/image/gong.jpg'})`}"></div>
+            <div @click="onPreview" class="isImg mb-10px bg-center bg-no-repeat bg-cover" :class="{'longImg': !sudoku}" :style="{'background-image': `url(${'https://img.yzcdn.cn/vant/cat.jpeg'})`}"></div>
         </div>
     </div>
   </view>
