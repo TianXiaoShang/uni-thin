@@ -4,7 +4,10 @@
       "path": "pages/index/index" 
     },
     {
-      "path": "pages/index/example/index" 
+      "path": "pages/index/example/index",
+      "style": {
+        "disableScroll": true
+      }
     },
     {
       "path": "pages/index/example-detail/index" 

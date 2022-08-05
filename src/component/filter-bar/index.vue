@@ -17,14 +17,16 @@
       <img src="/image/icon_shaixuan@3x.png" class="mr-10px w-26px h-26px" alt="">
     </div>
 
+    <!-- 真机上下面 van-popup 不需要计算顶部栏statusBarHeight高度-->
+    <!-- :custom-style="`top: ${statusBarHeight + navBarHeight}px`" -->
     <van-popup
       :show="show"
       position="top"
-      :custom-style="`;top: ${statusBarHeight + navBarHeight}px`"
-      safe-area-inset-top
+      :custom-style="`top: ${statusBarHeight + navBarHeight}px`"
       @close="onClose"
+      :lock-scroll="true"
     >
-    <div class="filte-list-wrap max-h-300px overflow-y-scroll bg-white box-border w-full p-15px">
+    <div @click.stop="haha" class="filte-list-wrap max-h-300px overflow-y-scroll bg-white box-border w-full p-15px">
       <div class="title text-md text-gray-500 mb-10px">
         性别
       </div>
@@ -101,6 +103,9 @@ export default {
     onClose(){
       console.log(1)
       this.show = false
+    },
+    haha(e){
+      console.log(e)
     }
   }
 };

@@ -9,10 +9,11 @@
       :refresher-triggered="triggered"
       @refresherrestore="onRestore"
       scroll-y="true"
-      class="page-container box-border bg-gray-100 w-full min-h-full mt-10px rounded-t-3xl relative"
+      class="page-container box-border bg-gray-100 w-full min-h-full mt-10px rounded-t-3xl"
       :style="{ height: `calc(${getScrollViewHeight(true, true, true, 10)})` }"
     >
-      <div class="w-full p-15px box-border relative z-99">
+      <div class="white" :style="{top: `${statusBarHeight + navBarHeight + 10}px`}"></div>
+      <div class="w-full p-15px box-border relative z-999">
         <div class="swiper rounded-xl overflow-hidden">
           <swiper
             class="w-full box-border rounded-xl"
@@ -46,6 +47,7 @@
 </template>
 
 <script>
+import { getStatusBarInfo } from '@/util/index.js'
 import { mapGetters } from 'vuex';
 export default {
   name: 'Index',
@@ -54,11 +56,16 @@ export default {
   },
   data() {
     return {
+      statusBarHeight: 20 /* 状态栏高度 */,
+      navBarHeight: 45 /* 导航栏高度 */,
     }
   },
   onLoad() {
   },
   created() {
+    const { statusBarHeight, navBarHeight } = getStatusBarInfo()
+    this.statusBarHeight = statusBarHeight
+    this.navBarHeight = navBarHeight
   },
   methods: {
     toExample(){
@@ -72,18 +79,18 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.page-container::after{
-  display: block;
-  content:'';
+.white{
   left: 0;
-  top: 0;
   background: #fff;
   width: 100%;
   height: 200rpx;
   border-radius: 1.5rem;
-  position: absolute;
+  position: fixed;
 }
 .page-wrap{
   background: #ED6C36;
+}
+.page-container{
+  position: relative;
 }
 </style>
