@@ -4,6 +4,12 @@
       "path": "pages/index/index" 
     },
     {
+      "path": "pages/index/example/index" 
+    },
+    {
+      "path": "pages/index/example-detail/index" 
+    },
+    {
         "path": "pages/teacher/index"
     },
     {

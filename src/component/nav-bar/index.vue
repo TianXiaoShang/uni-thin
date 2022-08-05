@@ -183,8 +183,8 @@ export default {
           .title {
             padding: 0 18rpx;
             padding-left: 0;
-            font-size: 20px;
-            font-weight: 550;
+            font-size: 18px;
+            font-weight: 500;
           }
           .title-center {
             position: absolute;

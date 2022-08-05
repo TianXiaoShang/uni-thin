@@ -3,7 +3,7 @@
     <van-dialog id="van-dialog" />
     <van-toast id="van-toast" />
     <loading v-show="showLoading" />
-    <nav-bar :title="'待评价'" :backgroundColor="'transparent'" :titlePos="'left'"></nav-bar>
+    <nav-bar showBack :title="'待评价'" :backgroundColor="'transparent'" :titlePos="'center'"></nav-bar>
     <scroll-view
       :refresher-enabled="false"
       :refresher-triggered="triggered"

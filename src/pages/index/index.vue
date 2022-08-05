@@ -1,25 +1,52 @@
 <template>
-  <view>
+  <view class="page-wrap">
     <van-dialog id="van-dialog" />
     <van-toast id="van-toast" />
     <loading v-show="loading || loadDataLoading" />
-    <nav-bar :title="'首页'" :titlePos="'left'"></nav-bar>
+    <nav-bar :title="'首页'" :backgroundColor="'#ED6C36'" :theme="'dark'" :titlePos="'left'"></nav-bar>
     <scroll-view
-      :refresher-enabled="true"
+      :refresher-enabled="false"
       :refresher-triggered="triggered"
       @refresherrestore="onRestore"
-      @refresherrefresh="onRefresh"
-      @scrolltolower="onScrolltolower"
       scroll-y="true"
-      :style="{ height: `calc(${getScrollViewHeight()})` }"
+      class="page-container box-border bg-gray-100 w-full min-h-full mt-10px rounded-t-3xl relative"
+      :style="{ height: `calc(${getScrollViewHeight(true, true, true, 10)})` }"
     >
-      <div v-for="(item, index) in list" :key="index">{{item}}</div>
+      <div class="w-full p-15px box-border relative z-99">
+        <div class="swiper rounded-xl overflow-hidden">
+          <swiper
+            class="w-full box-border rounded-xl"
+            style="height: 220rpx"
+            circular
+            :autoplay="true"
+            :interval="30000"
+            :duration="1000"
+          >
+            <swiper-item @click="toExample">
+              <img style="height: 220rpx" class="w-full rounded-xl overflow-hidden" src="/image/w1.jpg" alt="">
+            </swiper-item>
+            <swiper-item @click="toExample">
+              <img style="height: 220rpx" class="w-full rounded-xl overflow-hidden" src="/image/w1.jpg" alt="">
+            </swiper-item>
+            <swiper-item @click="toExample">
+              <img style="height: 220rpx" class="w-full rounded-xl overflow-hidden" src="/image/w1.jpg" alt="">
+            </swiper-item>
+          </swiper>
+        </div>
+        <div class="img-list box-border w-full" style="font-size: 0;">
+          <img style="height: 270rpx" class="mt-10px w-full rounded-xl overflow-hidden" src="/image/w2.jpg" alt="">
+          <img style="height: 270rpx" class="mt-10px w-full rounded-xl overflow-hidden" src="/image/w2.jpg" alt="">
+          <img style="height: 270rpx" class="mt-10px w-full rounded-xl overflow-hidden" src="/image/w2.jpg" alt="">
+          <img style="height: 270rpx" class="mt-10px w-full rounded-xl overflow-hidden" src="/image/w2.jpg" alt="">
+          <img style="height: 270rpx" class="mt-10px w-full rounded-xl overflow-hidden" src="/image/w2.jpg" alt="">
+        </div>
+      </div>
     </scroll-view>
   </view>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters } from 'vuex';
 export default {
   name: 'Index',
   computed: {
@@ -27,7 +54,6 @@ export default {
   },
   data() {
     return {
-      list:[1,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,1,1,1,1,,1,1,1,1,1,1,1,1,1,1,1,,1,1,1,1,,1,1,1,1]
     }
   },
   onLoad() {
@@ -35,30 +61,29 @@ export default {
   created() {
   },
   methods: {
-    // 刷新和滚动至底部处理
-    onRefresh() {
-      setTimeout(() => {
-        this.triggered = false;
-      }, 1000);
-    },
-    onScrolltolower() {
-      // if ((this.currentPage + 1) * this.pageSize >= this.totalCount) {
-      //   return;
-      // }
-      if (this.loadDataLoading) {
-        return;
-      }
-      this.loadDataLoading = true;
-      this.currentPage++;
-      setTimeout(() => {
-        this.loadDataLoading = false;
-        this.list.push(...[2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2])
-      }, 1000);
-    },
+    toExample(){
+      uni.navigateTo({
+        url: '/pages/index/example/index'
+      })
+    }
+    
   }
 }
 </script>
 
 <style lang="less" scoped>
-
+.page-container::after{
+  display: block;
+  content:'';
+  left: 0;
+  top: 0;
+  background: #fff;
+  width: 100%;
+  height: 200rpx;
+  border-radius: 1.5rem;
+  position: absolute;
+}
+.page-wrap{
+  background: #ED6C36;
+}
 </style>
