@@ -19,6 +19,6 @@ export default {
 
 <style lang="less">
 /*每个页面公共css */
-@import "./styles/common.less";
+@import "./styles/index.less";
 @import "./wxcomponents/common/index.wxss";
 </style>
