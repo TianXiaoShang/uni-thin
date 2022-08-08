@@ -13,7 +13,10 @@
       "path": "pages/index/example-detail/index" 
     },
     {
-        "path": "pages/teacher/index"
+      "path": "pages/teacher/index"
+    },
+    {
+      "path": "pages/teacher/detail/index"
     },
     {
       "path": "pages/my/index"
