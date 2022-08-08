@@ -16,12 +16,12 @@
       </div>
 
       <div class="m-4">
-        <div class="p-4 rounded-md mb-4 bg-white flex items-center">
-          <div class="mr-2 flex flex-col justify-between flex-1">
+        <div class="p-4 rounded-lg mb-4 bg-white flex">
+          <div class="mr-2 flex flex-col flex-1">
             <div class="font-medium truncate mb-2">ddd</div>
-            <div class=" text-sm text-gray-400">宇宙太阳系地球</div>
+            <div class="text-sm text-gray-400">宇宙太阳系地球</div>
           </div>
-          <van-image  width="4rem" height="4rem" fit="cover" src="https://img.yzcdn.cn/vant/cat.jpeg" />
+          <van-image width="4rem" height="4rem" fit="cover" src="https://img.yzcdn.cn/vant/cat.jpeg" />
         </div>
       </div>
     </scroll-view>

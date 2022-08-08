@@ -11,19 +11,26 @@
       scroll-y="true"
       :style="{ height: `calc(${getScrollViewHeight()})` }"
     >
-      <div class="bg-white flex p-4 rounded-md items-center mb-4">
-        <van-image round width="4rem" height="4rem" fit="cover" src="https://img.yzcdn.cn/vant/cat.jpeg" />
+      <div class="bg-white flex p-4 rounded-lg m-4">
+        <van-image round width="3rem" height="3rem" fit="cover" src="https://img.yzcdn.cn/vant/cat.jpeg" />
         <div class="ml-2 flex flex-col justify-between">
           <div>雪茄</div>
-          <div class="text-gray-400">ID:33333333</div>
+          <div class="text-gray-400 text-sm">ID:33333333</div>
         </div>
       </div>
-      <van-cell-group inset>
-        <van-cell title="待评价" is-link url="evaluation/index" ><span  class="rounded-full bg-red-500 text-white inline-flex justify-center items-center text-xs leading-none w-4 h-4" >6</span></van-cell>
-        <van-cell title="我的收藏" is-link  url="collect/index"/>
-        <van-cell title="我的关注" is-link url="attention/index" />
-        <van-cell title="历史记录" is-link url="history/index" />
-      </van-cell-group>
+      <div class="m-4 rounded-lg overflow-hidden">
+        <van-cell-group inset>
+          <van-cell icon="/image/icon_pinglun@3x.png" title="待评价" is-link url="evaluation/index"
+            ><span
+              class="rounded-full bg-red-500 text-white inline-flex justify-center items-center text-xs leading-none w-4 h-4"
+              >6</span
+            ></van-cell
+          >
+          <van-cell icon="/image/icon_wodeshoucang@3x.png" title="我的收藏" is-link url="collect/index" />
+          <van-cell icon="/image/icon_wodeguanzhu@3x.png" title="我的关注" is-link url="attention/index" />
+          <van-cell icon="/image/icon_wodelishi@3x.png" title="历史记录" is-link url="history/index" />
+        </van-cell-group>
+      </div>
     </scroll-view>
   </view>
 </template>

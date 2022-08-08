@@ -16,12 +16,12 @@
       </div>
 
       <div class="m-4">
-        <div class="p-4 rounded-md mb-4 bg-white">
-          <div class="flex items-center">
-            <van-image round width="4rem" height="4rem" fit="cover" src="https://img.yzcdn.cn/vant/cat.jpeg" />
+        <div class="p-4 rounded-lg mb-4 bg-white">
+          <div class="flex">
+            <van-image round width="3rem" height="3rem" fit="cover" src="https://img.yzcdn.cn/vant/cat.jpeg" />
             <div class="ml-2 flex flex-col justify-between">
               <div class="font-medium">ddd</div>
-              <div class="text-gray-400">宇宙太阳系地球</div>
+              <div class="text-gray-400 text-sm">宇宙太阳系地球</div>
             </div>
           </div>
           <van-divider />
@@ -51,7 +51,12 @@ export default {
   created() {},
   methods: {
     handleEdit() {
-      uni.navigateTo({ url: `edit/index?id=${23}`, fail: (e) => {console.log(e);} })
+      uni.navigateTo({
+        url: `edit/index?id=${23}`,
+        fail: (e) => {
+          console.log(e)
+        }
+      })
     }
   }
 }

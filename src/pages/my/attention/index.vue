@@ -16,7 +16,7 @@
       </div>
 
       <div class="m-4">
-        <div class="p-4 rounded-md mb-4 bg-white flex items-center justify-between">
+        <div class="p-4 rounded-lg mb-4 bg-white flex items-center justify-between">
           <div class="flex-1 flex">
             <van-image round width="3rem" height="3rem" fit="cover" src="https://img.yzcdn.cn/vant/cat.jpeg" />
             <div class="ml-2 flex flex-col justify-between flex-1">
