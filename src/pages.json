@@ -52,7 +52,7 @@
       "pagePath": "pages/teacher/index",
       "iconPath": "image/icon_txl1@2x.png",
       "selectedIconPath": "image/icon_txl2@2x.png",
-      "text": "日志"
+      "text": "老师"
     }, {
       "pagePath": "pages/my/index",
       "iconPath": "image/icon_wd1@2x.png",
