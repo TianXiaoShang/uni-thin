@@ -16,6 +16,7 @@ const store = new Vuex.Store({
         loginStatus: state => state.loginStatus,
         userInfo: state => state.userInfo,
         token: state => state.token,
+        openId: state => state.userInfo.openid,
     },
     mutations: {
         // 登陆，更新状态
