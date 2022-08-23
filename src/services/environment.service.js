@@ -1,12 +1,12 @@
 let BASE_URL = ''
-let ASSETS_BASE_URL = 'https://yueshixi-wx-1257888251.cos.ap-guangzhou.myqcloud.com/student'
+let ASSETS_BASE_URL = 'https://18test.djlnet.com.cn/'
 
 let env = uni.getAccountInfoSync()
 
 if (env.miniProgram.envVersion === 'release') {
-  BASE_URL = 'https://student.yueshixi.com'
+  BASE_URL = 'https://18test.djlnet.com.cn/app/diet_api.php?i=1&r='
 } else {
-  BASE_URL = 'https://student-dev.yueshixi.com'
+  BASE_URL = 'https://18test.djlnet.com.cn/app/diet_api.php?i=1&r='
 }
 
 export { ASSETS_BASE_URL, BASE_URL }
