@@ -34,6 +34,10 @@ Vue.filter('date', function(value) {
     return timestampToTime(value);
 })
 
+Vue.prototype.$onLaunched = new Promise(resolve => {
+    Vue.prototype.$isResolve = resolve
+})
+
 const app = new Vue({
     store,
     ...App
