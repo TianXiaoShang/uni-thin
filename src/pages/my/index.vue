@@ -12,10 +12,10 @@
       :style="{ height: `calc(${getScrollViewHeight()})` }"
     >
       <div class="bg-white flex p-4 rounded-lg m-4">
-        <van-image round width="3rem" height="3rem" fit="cover" src="https://img.yzcdn.cn/vant/cat.jpeg" />
+        <van-image round width="3rem" height="3rem" fit="cover" :src="userInfo.avatar" />
         <div class="ml-2 flex flex-col justify-between">
-          <div>雪茄</div>
-          <div class="text-gray-400 text-sm">ID:33333333</div>
+          <div>{{userInfo.realname}}</div>
+          <div class="text-gray-400 text-sm">ID:{{userInfo.id}}</div>
         </div>
       </div>
       <div class="m-4 rounded-lg overflow-hidden">
@@ -23,7 +23,7 @@
           <van-cell icon="/image/icon_pinglun@3x.png" title="待评价" is-link url="evaluation/index"
             ><span
               class="rounded-full bg-red-500 text-white inline-flex justify-center items-center text-xs leading-none w-4 h-4"
-              >6</span
+              >{{commentTaskCount}}</span
             ></van-cell
           >
           <van-cell icon="/image/icon_wodeshoucang@3x.png" title="我的收藏" is-link url="collect/index" />
@@ -37,18 +37,38 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import {getCommentTask, getAttention, getHistory} from '@/apis/index'
 export default {
   name: 'My',
   computed: {
-    ...mapGetters([])
+    ...mapGetters(['userInfo'])
   },
   data() {
     return {
-      showLoading: false
+      showLoading: false,
+      commentTask: {}
     }
   },
-  onLoad() {},
-  created() {},
+  computed:{
+    commentTaskCount() {
+      return this.commentTask?.total || 0
+    }
+  },
+  onLoad() {
+    getCommentTask().then(res => {
+      this.commentTask = res.data
+    })
+    getAttention().then(res => {
+      console.log(res);
+    })
+    getHistory().then(res => {
+      console.log(res);
+
+    })
+  },
+  created() {
+    
+  },
   methods: {}
 }
 </script>
