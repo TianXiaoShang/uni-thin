@@ -4,6 +4,7 @@ import request from '@/services/request.service'
 import Toast from '@/wxcomponents/toast/toast'
 import moment from 'moment'
 import { BASE_URL } from '@/services/environment.service'
+import { updateMemberInfo } from '@/apis/index'
 
 // 获取状态栏尺寸，用于自定义顶部导航栏
 const getStatusBarInfo = (function () {
@@ -150,15 +151,10 @@ const callGetUserInfo = function () {
       confirmButtonOpenType: 'getUserProfile' // 该属性可以在内部按钮直接唤起授权api，官方不支持间接唤起
     }).then(
       (infoRes) => {
-        updateSelfInfo({
-          headInfo: infoRes.userInfo.avatarUrl
-          // sex: infoRes.userInfo.gender,
-        }).then(
+        updateMemberInfo(infoRes.userInfo.avatarUrl, infoRes.userInfo.nickName).then(
           (res) => {
             Toast.success('授权成功')
-            getSelfInfo().then((res) => {
-              resolve()
-            })
+            store.commit('UPDATE_USERINFO',res.data.member)
           },
           (err) => {
             Toast('更新个人信息失败')
@@ -599,5 +595,5 @@ export {
   uploadPhoto,
   uploadPhotoImgUrl,
   getUrlParam,
-  diffWorkDays,
+  diffWorkDays
 }
