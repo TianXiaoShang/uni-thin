@@ -13,7 +13,7 @@
       :style="{ height: `calc(${getScrollViewHeight(true, true, true, 10)})` }"
     >
       <div class="white" :style="{top: `${statusBarHeight + navBarHeight + 10}px`}"></div>
-      <div class="w-full p-15px box-border relative z-999">
+      <div class="w-full p-15px box-border relative z-10">
         <div class="swiper rounded-xl overflow-hidden">
           <swiper
             class="w-full box-border rounded-xl"
@@ -49,6 +49,8 @@
 <script>
 import { getStatusBarInfo } from '@/util/index.js'
 import { mapGetters } from 'vuex';
+import { getPlate } from '@/apis/index'
+
 export default {
   name: 'Index',
   computed: {
@@ -60,7 +62,9 @@ export default {
       navBarHeight: 45 /* 导航栏高度 */,
     }
   },
-  onLoad() {
+  async onLoad() {
+    await this.$onLaunched
+    this.getPlate()
   },
   created() {
     const { statusBarHeight, navBarHeight } = getStatusBarInfo()
@@ -71,6 +75,11 @@ export default {
     toExample(){
       uni.navigateTo({
         url: '/pages/index/example/index'
+      })
+    },
+    getPlate() {
+      getPlate().then(res => {
+        console.log(res);
       })
     }
     
