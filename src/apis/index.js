@@ -107,7 +107,7 @@ export function getAttention(keyword = '', page = 1) {
  * @returns {Promise}
  */
 export function getHistory(keyword = '', page = 1) {
-  return request('member.attention', { page, keyword, openid: store.getters.openId }, 'GET')
+  return request('member.history', { page, keyword, openid: store.getters.openId }, 'GET')
 }
 
 /**
@@ -185,7 +185,7 @@ export function getCommentList(keyword = '', page = 1) {
   return request('member.comment', { keyword, page, openid: store.getters.openId }, 'GET')
 }
 /**
- * 我的评价详情
+ * 我的评论详情
  * @returns {Promise}
  */
 export function getCommentDetail(id) {
