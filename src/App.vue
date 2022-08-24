@@ -1,6 +1,5 @@
 <script>
 import { callGetUserInfo } from '@/util/index'
-import { getToken } from '@/util/storage'
 import store from './store'
 import { login, getGlobals, getLayout } from '@/apis/index'
 
@@ -20,7 +19,7 @@ export default {
       })
     }).then((res) => {
       store.commit('UPDATE_USERINFO', res.member)
-      callGetUserInfo()
+      // callGetUserInfo()
       // getLayout()
       // getGlobals()
     })
