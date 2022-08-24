@@ -154,7 +154,8 @@ const callGetUserInfo = function () {
         updateMemberInfo(infoRes.userInfo.avatarUrl, infoRes.userInfo.nickName).then(
           (res) => {
             Toast.success('授权成功')
-            store.commit('UPDATE_USERINFO',res.data.member)
+            store.commit('UPDATE_USERINFO', res.data.member)
+            resolve(res.data)
           },
           (err) => {
             Toast('更新个人信息失败')
