@@ -62,6 +62,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import { toEvaluate, getEvaluate } from '@/apis'
 export default {
   name: 'EvaluationEdit',
   computed: {
@@ -70,19 +71,28 @@ export default {
   data() {
     return {
       showLoading: false,
+      id: '',
       value: null,
       rate: 0,
       message: '',
       hidden: false,
-      safeAreaBottom: 0
+      safeAreaBottom: 0,
+      evaluateData: {}
     }
   },
   onLoad(options) {
     console.log(options)
+    this.id = options.id
     this.safeAreaBottom = uni.getSystemInfoSync()?.safeAreaInsets?.bottom || 0
+    this.getDetail()
   },
   created() {},
   methods: {
+    getDetail() {
+      getEvaluate(this.id).then((res) => {
+        this.evaluateData = res.data
+      })
+    },
     handleRateChange(e) {
       this.rate = e.detail
     },
@@ -94,6 +104,8 @@ export default {
     },
     handleSubmit() {
       console.log(this.rate, this.message, this.hidden)
+
+      toEvaluate(this.id, this.rate, this.message).then((res) => {})
     }
   }
 }

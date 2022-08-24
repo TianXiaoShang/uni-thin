@@ -8,11 +8,13 @@
       :refresher-enabled="false"
       :refresher-triggered="triggered"
       @refresherrestore="onRestore"
-      scroll-y="true"
+      @refresherrefresh="onRefresh"
+      @scrolltolower="onScrolltolower"
+      :scroll-y="true"
       :style="{ height: `calc(${getScrollViewHeight()})` }"
     >
       <div class="bg-white p-4">
-        <van-search :value="value" shape="round" placeholder="请输入搜索内容" />
+        <van-search :value="keyword" shape="round" placeholder="请输入搜索内容" @search="onSearch" />
       </div>
 
       <div class="m-4">
@@ -30,6 +32,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import { getCollect } from '@/apis'
 export default {
   name: 'Evaluation',
   computed: {
@@ -38,12 +41,47 @@ export default {
   data() {
     return {
       showLoading: false,
-      value: null
+      keyword: null,
+      listData: [],
+      pagination: {
+        total: 0,
+        page: 1
+      }
     }
   },
-  onLoad() {},
+  onLoad() {
+    this.getData()
+  },
   created() {},
-  methods: {}
+  methods: {
+    getData() {
+      this.showLoading = true
+      getCollect(this.keyword, this.pagination.page)
+        .then((res) => {
+          this.listData = res.data.list
+          this.pagination.total = res.data.total || 0
+        })
+        .catch(() => {
+          if (!this.pagination.page > 1) this.pagination.page -= 1
+        })
+        .finally(() => {
+          this.showLoading = false
+        })
+    },
+    onScrolltolower() {
+      if (this.listData.length >= this.pagination.total) return
+      this.pagination.page += 1
+      this.getData()
+    },
+    onSearch(val) {
+      this.keyword = val.detail
+      this.onRefresh()
+    },
+    onRefresh() {
+      this.pagination.page = 1
+      this.getData()
+    }
+  }
 }
 </script>
 
