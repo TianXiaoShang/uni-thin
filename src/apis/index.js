@@ -107,7 +107,7 @@ export function getAttention(keyword = '', page = 1) {
  * @returns {Promise}
  */
 export function getHistory(keyword = '', page = 1) {
-  return request('member.history', { page, keyword, openid: store.getters.openId }, 'GET')
+  return request('member.visit', { page, keyword, openid: store.getters.openId }, 'GET')
 }
 
 /**
@@ -208,4 +208,53 @@ export function getEvaluate(task_id) {
  */
 export function toEvaluate(task_id, grade, content) {
   return request('member.evaluate', { task_id, grade, content, openid: store.getters.openId }, 'GET')
+}
+
+// ====================  老师   =================
+/**
+ * 人员其他数据
+ * @returns {Promise}
+ */
+export function getTeamOther() {
+  return request('team.person_else', {}, 'GET')
+}
+
+/**
+ * 人员列表
+ * @returns {Promise}
+ */
+export function getTeamList(group_id, keyword = '', page = 1) {
+  return request('team.person', { group_id, keyword, page }, 'GET')
+}
+
+/**
+ * 人员详情
+ * @returns {Promise}
+ */
+export function getPersonDetail(id) {
+  return request('team.person_detail', { id, openid: store.getters.openId }, 'GET')
+}
+
+/**
+ * 人员评价
+ * @returns {Promise}
+ */
+export function getPersonComment(person_id, keyword = '', page = 1) {
+  return request('team.person_comment', { person_id, keyword, page }, 'GET')
+}
+
+/**
+ * 关注
+ * @returns {Promise}
+ */
+export function attentionPerson(person_id) {
+  return request('team.attention', { person_id, openid: store.getters.openId }, 'GET')
+}
+
+/**
+ * 取消关注
+ * @returns {Promise}
+ */
+export function cancelAttentionPerson(person_id) {
+  return request('team.cancel_attention', { person_id, openid: store.getters.openId }, 'GET')
 }
