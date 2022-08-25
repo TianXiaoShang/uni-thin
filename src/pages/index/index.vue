@@ -23,23 +23,19 @@
             :interval="30000"
             :duration="1000"
           >
-            <swiper-item @click="toExample">
+            <swiper-item v-for="item of plates" :key="item.id" @click="toExample(item.id)">
+              <img style="height: 220rpx" class="w-full overflow-hidden" :src="item.images" alt="">
+            </swiper-item>
+            <!-- <swiper-item @click="toExample">
               <img style="height: 220rpx" class="w-full overflow-hidden" src="https://img.yzcdn.cn/vant/cat.jpeg" alt="">
             </swiper-item>
             <swiper-item @click="toExample">
               <img style="height: 220rpx" class="w-full overflow-hidden" src="https://img.yzcdn.cn/vant/cat.jpeg" alt="">
-            </swiper-item>
-            <swiper-item @click="toExample">
-              <img style="height: 220rpx" class="w-full overflow-hidden" src="https://img.yzcdn.cn/vant/cat.jpeg" alt="">
-            </swiper-item>
+            </swiper-item> -->
           </swiper>
         </div>
         <div class="img-list box-border w-full" style="font-size: 0;">
-          <img style="height: 270rpx" class="mt-10px w-full rounded-xl overflow-hidden" src="https://img.yzcdn.cn/vant/cat.jpeg" alt="">
-          <img style="height: 270rpx" class="mt-10px w-full rounded-xl overflow-hidden" src="https://img.yzcdn.cn/vant/cat.jpeg" alt="">
-          <img style="height: 270rpx" class="mt-10px w-full rounded-xl overflow-hidden" src="https://img.yzcdn.cn/vant/cat.jpeg" alt="">
-          <img style="height: 270rpx" class="mt-10px w-full rounded-xl overflow-hidden" src="https://img.yzcdn.cn/vant/cat.jpeg" alt="">
-          <img style="height: 270rpx" class="mt-10px w-full rounded-xl overflow-hidden" src="https://img.yzcdn.cn/vant/cat.jpeg" alt="">
+          <img v-for="item of plates" :key="item.id" style="height: 270rpx" class="mt-10px w-full rounded-xl overflow-hidden" :src="item.images" alt="">
         </div>
       </div>
     </scroll-view>
@@ -60,6 +56,7 @@ export default {
     return {
       statusBarHeight: 20 /* 状态栏高度 */,
       navBarHeight: 45 /* 导航栏高度 */,
+      plates: []
     }
   },
   async onLoad() {
@@ -72,14 +69,15 @@ export default {
     this.navBarHeight = navBarHeight
   },
   methods: {
-    toExample(){
+    toExample(id){
       uni.navigateTo({
-        url: '/pages/index/example/index'
+        url: `/pages/index/example/index?id=${id}`
       })
     },
     getPlate() {
       getPlate().then(res => {
         console.log(res);
+        this.plates = res.data.plate
       })
     }
     
