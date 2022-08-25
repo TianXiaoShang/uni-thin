@@ -3,35 +3,45 @@
     <van-dialog id="van-dialog" />
     <van-toast id="van-toast" />
     <loading v-show="showLoading" />
-    <nav-bar type='search' :backgroundColor="'transparent'" :titlePos="'center'"></nav-bar>
+    <nav-bar type="search" :titlePos="'center'" @search="onSearch"></nav-bar>
+    <div class="tabs-list w-full box-border pr-42px overflow-y-hidden whitespace-nowrap overflow-x-scroll bg-white">
+      <div
+        v-for="item of teamTags"
+        :key="item.id"
+        class="inline-block tag mr-8px bg-gray-100 px-12px py-3px rounded-md text-gray-500 text-sm"
+        :class="{ active: activeTag === item.id }"
+        @click="handleTag(item.id)"
+      >
+        {{ item.title }}
+      </div>
+    </div>
     <scroll-view
       :refresher-enabled="false"
       :refresher-triggered="triggered"
       @refresherrestore="onRestore"
-      scroll-y="true"
-      :style="{ height: `calc(${getScrollViewHeight()})` }"
+      @refresherrefresh="onRefresh"
+      @scrolltolower="onScrolltolower"
+      :scroll-y="true"
+      :style="{ height: `calc(${getScrollViewHeight(true, true, true, 26)})` }"
     >
-      <div class="m-4 bg-white rounded-lg p-4" @click="handleDetail">
-        <div class="  mb-2  flex ">
-          <van-image round  width="3rem" height="3rem" fit="cover" src="https://img.yzcdn.cn/vant/cat.jpeg" />
+      <div class="m-4 bg-white rounded-lg p-4" @click="handleDetail(item.id)" v-for="item of listData" :key="item.id">
+        <div class="mb-2 flex">
+          <van-image round width="3rem" height="3rem" fit="cover" :src="item.avatar" />
           <div class="ml-2 flex flex-col justify-between flex-1">
-            <div class="font-medium truncate mb-2">ddd</div>
-            <div class=" text-sm text-gray-400">宇宙太阳系地球</div>
+            <div class="font-medium truncate mb-2">{{ item.realname }}</div>
+            <div class="text-sm text-gray-400">{{ item.company }}</div>
           </div>
           <div class="">
             <van-icon color="#ffce5d" name="star" />
-            <span class="ml-2 text-gray-400">5.0</span>
+            <span class="ml-2 text-gray-400">{{ item.grade }}</span>
           </div>
         </div>
         <div>
-          <van-tag class="mr-2" type="primary">标签</van-tag>
-          <van-tag class="mr-2" type="primary">标签</van-tag>
-          <van-tag class="mr-2" type="primary">标签</van-tag>
-          <van-tag class="mr-2" type="primary">标签</van-tag>
+          <van-tag v-for="id of item.group_id" :key="id" class="mr-2" type="primary">{{ id }}</van-tag>
         </div>
         <div class="text-sm mt-2">
           <span class="">擅长：</span>
-          <span class="text-gray-400">跑步跑步跑步跑步，跑步跑步跑步跑步</span>
+          <span class="text-gray-400 whitespace-pre">{{ item.skilled }}</span>
         </div>
       </div>
     </scroll-view>
@@ -40,6 +50,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import { getTeamList, getTeamOther } from '@/apis'
 export default {
   name: 'Evaluation',
   computed: {
@@ -48,17 +59,81 @@ export default {
   data() {
     return {
       showLoading: false,
-      value: null
+      keyword: null,
+      listData: [],
+      teamTags: [],
+      activeTag: '',
+      pagination: {
+        total: 0,
+        page: 1
+      }
     }
   },
-  onLoad() {},
+  onLoad() {
+    this.init()
+  },
   created() {},
   methods: {
-    handleDetail() {
-      uni.navigateTo({ url: `detail/index`, fail: (e) => {console.log(e);} })
+    init() {
+      getTeamOther().then((res) => {
+        const group = res.data.group || {}
+        const arr = []
+        for (let k in group) {
+          arr.push(group[k])
+        }
+        this.teamTags = arr
+        this.activeTag = arr[0]?.id
+
+        this.getData()
+      })
+    },
+    getData() {
+      this.showLoading = true
+      getTeamList(this.activeTag, this.keyword, this.pagination.page)
+        .then((res) => {
+          this.listData = res.data.list
+          this.pagination.total = res.data.total || 0
+        })
+        .catch(() => {
+          if (!this.pagination.page > 1) this.pagination.page -= 1
+        })
+        .finally(() => {
+          this.showLoading = false
+        })
+    },
+    onScrolltolower() {
+      if (this.listData.length >= this.pagination.total) return
+      this.pagination.page += 1
+      this.getData()
+    },
+    onSearch(val) {
+      this.keyword = val
+      this.onRefresh()
+    },
+    onRefresh() {
+      this.pagination.page = 1
+      this.getData()
+    },
+    handleTag(id) {
+      this.activeTag = id
+      this.pagination.page = 1
+      this.getData()
+    },
+    handleDetail(id) {
+      uni.navigateTo({
+        url: `detail/index?id=${id}`,
+        fail: (e) => {
+          console.log(e)
+        }
+      })
     }
   }
 }
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+.active {
+  background: #ed6c36;
+  color: white;
+}
+</style>
