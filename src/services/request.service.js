@@ -24,7 +24,7 @@ const request = function (path, data = {}, method = 'POST') {
           reject(res)
         } else {
           console.log('请求失败:', res)
-          Toast('请求失败!')
+          Toast.fail(res.data.message || '请求失败!')
           reject(res)
         }
       },
