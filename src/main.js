@@ -4,6 +4,7 @@ import store from './store'
 import NavBar from "@/component/nav-bar";
 import globalMixin from "@/mixin/global-mixin";
 import Loading from '@/component/loading';
+import uParse from '@/components/u-parse/u-parse.vue'
 
 import 'windi.css';
 
@@ -14,6 +15,7 @@ Vue.use(globalMixin);
 // 全局组件，navbar
 Vue.component('NavBar', NavBar)
 Vue.component('Loading', Loading)
+Vue.component('uParse', uParse)
 Vue.prototype.$bus = new Vue()
 
 
