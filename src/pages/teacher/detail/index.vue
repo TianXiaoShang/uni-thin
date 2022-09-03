@@ -3,7 +3,7 @@
     <van-dialog id="van-dialog" />
     <van-toast id="van-toast" />
     <loading v-show="showLoading" />
-    <nav-bar showBack title="老师详情页" :backgroundColor="'transparent'" :titlePos="'center'"></nav-bar>
+    <nav-bar showBack title="老师详情页" :backgroundColor="'white'" :titlePos="'center'"></nav-bar>
 
     <div class="mb-2 bg-white rounded-lg p-4">
       <div class="mb-2 flex">
@@ -38,10 +38,12 @@
       </div>
       <div class="text-sm mt-2">
         <span class="">擅长：</span>
-        <span class="text-gray-400 whitespace-pre">{{ detailData.skilled }}</span>
+        <span class="text-gray-400 whitespace-pre-wrap">{{ detailData.skilled }}</span>
       </div>
       <div class="mt-2">
-        <van-tag v-for="id of detailData.group_id" :key="id" class="mr-2" type="primary">{{ id }}</van-tag>
+        <van-tag v-for="id of detailData.group_id" :key="id" class="mr-2" type="primary">{{
+          teamGroupMap[id].title
+        }}</van-tag>
       </div>
     </div>
 
@@ -62,7 +64,7 @@
               <span class="text-gray-400 mr-2">{{ item.is_anonymity == 1 ? '匿名用户' : item.member_nickname }}</span>
               <van-rate readonly :value="item.grade" />
             </div>
-            <div class="mt-2 whitespace-pre">{{ item.content }}</div>
+            <div class="mt-2 whitespace-pre-wrap">{{ item.content }}</div>
             <div class="mt-2 text-gray-400 text-sm">{{ item.create_time | date }}</div>
           </div>
           <van-divider v-if="i < commentList.length - 1" />
@@ -78,7 +80,7 @@ import { getPersonDetail, getPersonComment, attentionPerson, cancelAttentionPers
 export default {
   name: 'Evaluation',
   computed: {
-    ...mapGetters([])
+    ...mapGetters(['teamGroupMap'])
   },
   data() {
     return {
@@ -130,20 +132,20 @@ export default {
     handleAttention() {
       attentionPerson(this.id).then((res) => {
         if (res.errno == 1) {
-          this.$notify({ type: 'success', message: '关注成功' })
+          this.toast({ type: 'success', message: '关注成功' })
           this.getDetail()
         } else {
-          this.$notify({ type: 'warning', message: res.message })
+          this.toast({ type: 'fail', message: res.message })
         }
       })
     },
     handleCancelAttention() {
       cancelAttentionPerson(this.id).then((res) => {
         if (res.errno == 1) {
-          this.$notify({ type: 'success', message: '取消关注成功' })
+          this.toast({ type: 'success', message: '取消关注成功' })
           this.getDetail()
         } else {
-          this.$notify({ type: 'warning', message: res.message })
+          this.toast({ type: 'fail', message: res.message })
         }
       })
     }

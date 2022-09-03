@@ -24,25 +24,35 @@
       :scroll-y="true"
       :style="{ height: `calc(${getScrollViewHeight(true, true, true, 26)})` }"
     >
-      <div class="m-4 bg-white rounded-lg p-4" @click="handleDetail(item.id)" v-for="item of listData" :key="item.id">
-        <div class="mb-2 flex">
-          <van-image round width="3rem" height="3rem" fit="cover" :src="item.avatar" />
-          <div class="ml-2 flex flex-col justify-between flex-1">
-            <div class="font-medium truncate mb-2">{{ item.realname }}</div>
-            <div class="text-sm text-gray-400">{{ item.company }}</div>
+      <div class="p-4">
+        <div
+          class="mb-4 bg-white rounded-lg p-4"
+          @click="handleDetail(item.id)"
+          v-for="item of listData"
+          :key="item.id"
+        >
+          <div class="mb-2 flex">
+            <van-image round width="3rem" height="3rem" fit="cover" :src="item.avatar" />
+            <div class="ml-2 flex flex-col justify-between flex-1">
+              <div class="font-medium truncate mb-2">{{ item.realname }}</div>
+              <div class="text-sm text-gray-400">{{ item.company }}</div>
+            </div>
+            <div class="">
+              <van-icon color="#ffce5d" name="star" />
+              <span class="ml-2 text-gray-400">{{ item.grade }}</span>
+            </div>
           </div>
-          <div class="">
-            <van-icon color="#ffce5d" name="star" />
-            <span class="ml-2 text-gray-400">{{ item.grade }}</span>
+          <div>
+            <van-tag v-for="id of item.group_id" :key="id" class="mr-2" type="primary">{{
+              teamGroupMap[id].title
+            }}</van-tag>
+          </div>
+          <div class="text-sm mt-2">
+            <span class="">擅长：</span>
+            <span class="text-gray-400 whitespace-pre-wrap">{{ item.skilled }}</span>
           </div>
         </div>
-        <div>
-          <van-tag v-for="id of item.group_id" :key="id" class="mr-2" type="primary">{{ id }}</van-tag>
-        </div>
-        <div class="text-sm mt-2">
-          <span class="">擅长：</span>
-          <span class="text-gray-400 whitespace-pre">{{ item.skilled }}</span>
-        </div>
+        <van-empty v-if="!listData.length" description="暂无数据" />
       </div>
     </scroll-view>
   </view>
@@ -54,12 +64,12 @@ import { getTeamList, getTeamOther } from '@/apis'
 export default {
   name: 'Evaluation',
   computed: {
-    ...mapGetters([])
+    ...mapGetters(['teamGroupMap'])
   },
   data() {
     return {
       showLoading: false,
-      keyword: null,
+      keyword: '',
       listData: [],
       teamTags: [],
       activeTag: '',
@@ -77,15 +87,13 @@ export default {
     init() {
       getTeamOther().then((res) => {
         const group = res.data.group || {}
-        const arr = []
-        for (let k in group) {
-          arr.push(group[k])
-        }
+        const arr = Object.keys(group).map((k) => group[k])
         this.teamTags = arr
-        this.activeTag = arr[0]?.id
 
-        this.getData()
+        this.$store.commit('UPDATE_TEAM_GROUP', arr)
+        // this.activeTag = arr[0]?.id
       })
+      this.getData()
     },
     getData() {
       this.showLoading = true
