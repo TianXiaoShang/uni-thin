@@ -3,7 +3,10 @@
     <van-dialog id="van-dialog" />
     <van-toast id="van-toast" />
     <loading v-show="showLoading" />
-    <nav-bar showBack :title="'我的关注'" :backgroundColor="'transparent'" :titlePos="'center'"></nav-bar>
+    <nav-bar showBack :title="'我的关注'" :backgroundColor="'white'" :titlePos="'center'"></nav-bar>
+    <div class="bg-white p-4">
+      <van-search :value="keyword" shape="round" placeholder="请输入搜索内容" @search="onSearch" />
+    </div>
     <scroll-view
       :refresher-enabled="false"
       :refresher-triggered="triggered"
@@ -11,26 +14,33 @@
       @refresherrefresh="onRefresh"
       @scrolltolower="onScrolltolower"
       :scroll-y="true"
-      :style="{ height: `calc(${getScrollViewHeight()})` }"
+      :style="{ height: `calc(${getScrollViewHeight()} - 68px)` }"
     >
-      <div class="bg-white">
-        <van-search :value="keyword" shape="round" placeholder="请输入搜索内容" @search="onSearch" />
-      </div>
-
-      <div class="m-4">
-        <div class="p-4 rounded-lg mb-4 bg-white flex items-center justify-between">
-          <div class="flex-1 flex">
-            <van-image round width="3rem" height="3rem" fit="cover" src="https://img.yzcdn.cn/vant/cat.jpeg" />
-            <div class="ml-2 flex flex-col justify-between flex-1">
-              <div class="mb-2">
-                <span class="font-medium truncate mr-2">ddd</span>
-                <span class="text-gray-400 text-sm"><van-icon class="text-orange-400 mr-2" name="star" /> 5.0</span>
+      <div class="p-4">
+        <div class="mb-4">
+          <div
+            v-for="item of listData"
+            :key="item.id"
+            class="p-4 rounded-lg mb-4 bg-white flex items-center justify-between"
+          >
+            <div class="flex-1 flex">
+              <van-image round width="3rem" height="3rem" fit="cover" :src="item.person_avatar" />
+              <div class="ml-2 flex flex-col justify-between flex-1">
+                <div class="mb-2">
+                  <span class="font-medium truncate mr-2">{{ item.person_nickname }}</span>
+                  <span class="text-gray-400 text-sm"
+                    ><van-icon class="text-orange-400 mr-2" name="star" />{{ 0 }}</span
+                  >
+                </div>
+                <div class="text-sm text-gray-400">{{ item.person_company }}</div>
               </div>
-              <div class="text-sm text-gray-400">宇宙太阳系地球</div>
             </div>
+            <van-button round size="small" plain type="primary" @click.stop="handleAttention(item.person_id)"
+              >已关注</van-button
+            >
           </div>
-          <van-button round size="small" plain type="primary">已关注</van-button>
         </div>
+        <van-empty v-if="!listData.length" description="暂无数据" />
       </div>
     </scroll-view>
   </view>
@@ -38,7 +48,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { getAttention } from '@/apis'
+import { getAttention, cancelAttentionPerson } from '@/apis'
 export default {
   name: 'Evaluation',
   computed: {
@@ -47,7 +57,7 @@ export default {
   data() {
     return {
       showLoading: false,
-      keyword: null,
+      keyword: '',
       listData: [],
       pagination: {
         total: 0,
@@ -86,6 +96,29 @@ export default {
     onRefresh() {
       this.pagination.page = 1
       this.getData()
+    },
+    handleAttention(id) {
+      const beforeClose = (action) =>
+        new Promise((resolve) => {
+          if (action === 'confirm') {
+            return cancelAttentionPerson(id).then(
+              (res) => {
+                this.toast.success('取消关注成功')
+                this.onRefresh()
+                return resolve(true)
+              },
+              () => {
+                return resolve(false)
+              }
+            )
+          }
+          resolve(true)
+        })
+      this.dialog.confirm({
+        // title: '标题',
+        message: '确认取消关注?',
+        beforeClose
+      })
     }
   }
 }

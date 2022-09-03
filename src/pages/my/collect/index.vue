@@ -3,7 +3,10 @@
     <van-dialog id="van-dialog" />
     <van-toast id="van-toast" />
     <loading v-show="showLoading" />
-    <nav-bar showBack :title="'我的收藏'" :backgroundColor="'transparent'" :titlePos="'center'"></nav-bar>
+    <nav-bar showBack :title="'我的收藏'" :backgroundColor="'white'" :titlePos="'center'"></nav-bar>
+    <div class="bg-white p-4">
+      <van-search :value="keyword" shape="round" placeholder="请输入搜索内容" @search="onSearch" />
+    </div>
     <scroll-view
       :refresher-enabled="false"
       :refresher-triggered="triggered"
@@ -11,20 +14,19 @@
       @refresherrefresh="onRefresh"
       @scrolltolower="onScrolltolower"
       :scroll-y="true"
-      :style="{ height: `calc(${getScrollViewHeight()})` }"
+      :style="{ height: `calc(${getScrollViewHeight()} - 68px)` }"
     >
-      <div class="bg-white p-4">
-        <van-search :value="keyword" shape="round" placeholder="请输入搜索内容" @search="onSearch" />
-      </div>
-
-      <div class="m-4">
-        <div class="p-4 rounded-lg mb-4 bg-white flex">
-          <div class="mr-2 flex flex-col flex-1">
-            <div class="font-medium truncate mb-2">ddd</div>
-            <div class="text-sm text-gray-400">宇宙太阳系地球</div>
+      <div class="p-4">
+        <div class="mb-4">
+          <div class="p-4 rounded-lg mb-4 bg-white flex">
+            <div class="mr-2 flex flex-col flex-1">
+              <div class="font-medium truncate mb-2">ddd</div>
+              <div class="text-sm text-gray-400">宇宙太阳系地球</div>
+            </div>
+            <van-image width="4rem" height="4rem" fit="cover" src="https://img.yzcdn.cn/vant/cat.jpeg" />
           </div>
-          <van-image width="4rem" height="4rem" fit="cover" src="https://img.yzcdn.cn/vant/cat.jpeg" />
         </div>
+        <van-empty v-if="!listData.length" description="暂无数据" />
       </div>
     </scroll-view>
   </view>
@@ -41,7 +43,7 @@ export default {
   data() {
     return {
       showLoading: false,
-      keyword: null,
+      keyword: '',
       listData: [],
       pagination: {
         total: 0,
