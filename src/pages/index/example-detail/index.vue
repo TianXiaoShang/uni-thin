@@ -38,7 +38,7 @@ import FilterBar from '@/component/filter-bar/index'
 import Title from '../example/component/title'
 import Control from '../example/component/control'
 import Images from '../example/component/images'
-import { getArticleDetail, addVisit } from '@/apis'
+import { getArticleDetail, addVisit, getArticleExtra } from '@/apis'
 
 export default {
   name: 'Example',
@@ -68,10 +68,21 @@ export default {
       getArticleDetail(this.id)
         .then((res) => {
           this.articleDetail = res.data.article
+          this.getArticleOther(res.data.article.plate_id)
         })
         .finally(() => {
           this.loadDataLoading = false
         })
+    },
+    getArticleOther(id) {
+      if (!id) return
+      return getArticleExtra(id).then((res) => {
+        const { group, marks } = res.data
+        const groupData = Object.keys(group).map((k) => group[k])
+        const markData = Object.keys(marks).map((k) => marks[k])
+        this.$store.commit('UPDATE_GROUP', groupData)
+        this.$store.commit('UPDATE_MARK_DATA', markData)
+      })
     },
     handleUpdateArticle(id) {
       if (!id) return
