@@ -29,7 +29,7 @@
                 <div class="mb-2">
                   <span class="font-medium truncate mr-2">{{ item.person_nickname }}</span>
                   <span class="text-gray-400 text-sm"
-                    ><van-icon class="text-orange-400 mr-2" name="star" />{{ item.grade }}</span
+                    ><van-icon class="text-orange-400 mr-2" name="star" />{{ item.grade | toFixed }}</span
                   >
                 </div>
                 <div class="text-sm text-gray-400">{{ item.person_company }}</div>

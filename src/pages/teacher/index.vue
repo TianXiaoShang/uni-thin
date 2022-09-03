@@ -39,7 +39,7 @@
             </div>
             <div class="">
               <van-icon color="#ffce5d" name="star" />
-              <span class="ml-2 text-gray-400">{{ item.grade }}</span>
+              <span class="ml-2 text-gray-400">{{ item.grade | toFixed }}</span>
             </div>
           </div>
           <div>

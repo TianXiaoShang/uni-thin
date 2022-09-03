@@ -13,7 +13,7 @@
             <div class="font-medium truncate">{{ detailData.realname }}</div>
             <div class="ml-2">
               <van-icon color="#ffce5d" name="star" />
-              <span class="ml-2 text-gray-400">{{ detailData.grade }}</span>
+              <span class="ml-2 text-gray-400">{{ detailData.grade  | toFixed }}</span>
             </div>
           </div>
           <div class="text-sm text-gray-400">{{ detailData.company }}</div>
