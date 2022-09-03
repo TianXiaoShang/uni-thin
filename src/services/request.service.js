@@ -12,7 +12,7 @@ const request = function (path, data = {}, method = 'POST') {
       method,
       data,
       header: {
-        // cookie: token
+        'content-type': method === 'GET' ? 'application/json' : 'application/x-www-form-urlencoded'
       },
       success: (res) => {
         if (res.data.errno == 1 && res.statusCode >= 200 && res.statusCode < 300) {
