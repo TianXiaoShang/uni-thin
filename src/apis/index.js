@@ -201,13 +201,14 @@ export function getEvaluate(task_id) {
 
 /**
  * 评价
- * @param {string} task_id
- * @param {number} grade 评分
- * @param {string} content 评价内容
+ * @param {{task_id: string; grade: number; content: string; is_anonymity: number}} params
+ * grade 评分
+ * content 评价内容
+ * is_anonymity 是否匿名 0否 1是
  * @returns {Promise}
  */
-export function toEvaluate(task_id, grade, content) {
-  return request('member.evaluate', { task_id, grade, content, openid: store.getters.openId }, 'GET')
+export function toEvaluate(params) {
+  return request(`member.evaluate&openid=${store.getters.openId}`, { ...params }, 'POST')
 }
 
 // ====================  老师   =================
