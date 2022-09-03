@@ -4,7 +4,7 @@
     <van-toast id="van-toast" />
     <loading v-show="loadDataLoading" />
     <nav-bar showBack :title="'成功案例'" :titlePos="'center'"></nav-bar>
-    <filter-bar></filter-bar>
+    <filter-bar :group="group" :group-id="activeGroup" @update-group="handleUpdateGroup"></filter-bar>
     <scroll-view
       :refresher-enabled="false"
       :refresher-triggered="triggered"
@@ -17,28 +17,23 @@
     >
       <div class="p-15px">
         <div
-          @click="toExampleDetail(item.id)"
           class="w-full box-border relative z-99 bg-white rounded-xl overflow-hidden shadow-lg mb-15px"
-          v-for="item in 10"
+          v-for="item in listData"
           :key="item.id"
         >
-          <div class="inner p-15px">
-            <title :title="'32岁，哺乳妈妈，三个月内成功瘦掉15斤哈哈'" :number="15"></title>
+          <div class="inner p-15px" @click="toExampleDetail(item.id)">
+            <title :title="item.title" :number="15"></title>
             <div class="text-gray-400 text-sm mt-10px font-normal leading-5 text-content">
-              32岁，哺乳妈妈，三个月内成功哺乳妈妈，32岁，哺乳妈妈，三个月内成功哺乳妈妈，32岁，哺乳妈妈，三个月内成功哺乳妈妈，32岁，哺乳妈妈，三个月内成功哺乳妈妈，32岁，哺乳妈妈，三个月内成功哺乳妈妈，32岁，哺乳妈妈，三个月内成功哺乳妈妈，<br />
-            </div>
-            <images :sudoku="true"></images>
+              <u-parse :loading="false" :content="item.content" /></div>
+            <images
+              :sudoku="item.image_mode == 0"
+              :images="item.image_mode == 0 ? item.across_picture : item.vertical_picture"
+            ></images>
             <div class="tags flex flex-wrap mt-5px">
-              <div class="mr-8px text-xs tag py-2px mt-5px px-8px"># 5斤</div>
-              <div class="mr-8px text-xs tag py-2px mt-5px px-8px"># 哺乳期</div>
-              <div class="mr-8px text-xs tag py-2px mt-5px px-8px"># 哈哈</div>
-              <div class="mr-8px text-xs tag py-2px mt-5px px-8px"># 厉害了</div>
-              <div class="mr-8px text-xs tag py-2px mt-5px px-8px"># 厉害了</div>
-              <div class="mr-8px text-xs tag py-2px mt-5px px-8px"># 厉害了</div>
-              <div class="mr-8px text-xs tag py-2px mt-5px px-8px"># 厉害了</div>
+              <div v-for="g of item.group_id" :key="g" class="mr-8px text-xs tag py-2px mt-5px px-8px"># {{ groupMap[g].title }}</div>
             </div>
           </div>
-          <control :canLove="true"></control>
+          <control :canLove="true" :article-detail="item" @update="handleUpdateArticle"></control>
         </div>
       </div>
     </scroll-view>
@@ -51,22 +46,23 @@ import FilterBar from '@/component/filter-bar/index'
 import Title from './component/title'
 import Control from './component/control'
 import Images from './component/images'
-import { getArticleExtra, getArticleList } from '@/apis'
+import { getArticleExtra, getArticleList, getArticleDetail } from '@/apis'
 export default {
   name: 'Example',
   computed: {
-    ...mapGetters([])
+    ...mapGetters(['groupMap', 'group'])
   },
   components: { FilterBar, Title, Images, Control },
   data() {
     return {
       plateId: '',
-      keyword: null,
+      keyword: '',
       listData: [],
       pagination: {
         total: 0,
         page: 1
-      }
+      },
+      activeGroup: ''
     }
   },
   onLoad(opt) {
@@ -78,12 +74,16 @@ export default {
   methods: {
     getArticleOther() {
       getArticleExtra(this.plateId).then((res) => {
-        console.log(res)
+        const {group, marks} = res.data
+        const groupData = Object.keys(group).map(k => group[k])
+        const markData = Object.keys(marks).map(k => marks[k])
+        this.activeGroup = groupData?.[0]?.id
+        this.$store.commit('UPDATE_GROUP', groupData)
       })
     },
     getList() {
       this.loadDataLoading = true
-      getArticleList({ plate_id: this.plateId, keyword: this.keyword, group_id: '', page: this.pagination.page })
+      getArticleList({ plate_id: this.plateId, keyword: this.keyword, group_id: '3', page: this.pagination.page })
         .then((res) => {
           console.log(res)
           this.listData = res.data.list
@@ -109,6 +109,19 @@ export default {
     toExampleDetail(id) {
       uni.navigateTo({
         url: `/pages/index/example-detail/index?id=${id}`
+      })
+    },
+    handleUpdateGroup(id) {
+      this.activeGroup = id
+      this.onRefresh()
+    },
+    handleUpdateArticle(id) {
+      if (!id) return
+      getArticleDetail(id).then((res) => {
+        const { article } = res.data
+        const idx = this.listData.findIndex((d) => d.id == id)
+        if (idx == -1) return
+        this.$set(this.listData, idx, article)
       })
     }
   }

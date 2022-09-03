@@ -1,7 +1,7 @@
 <template>
   <view class="flex justify-between">
     <div class="text-lg">
-        {{title || 'titile将扩大开放啊就大师放假啊大家反馈啊接口了大师减肥'}}
+        {{title || ''}}
     </div>
     <div class="icon -mr-15px pl-15px text-white" :style="{width: number.length + 2 + 'em', height: '30px', 'text-align': center, 'line-height': '30px'}">
         -{{number}}

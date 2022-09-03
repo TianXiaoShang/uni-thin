@@ -5,7 +5,7 @@
       <span class="mt-2px text-gray-500 text-xs ml-5px">{{ articleDetail.transmit || 0 }}</span>
     </div>
     <div class="icon flex items-center" @click="handleLike">
-      <img v-if="articleDetail.is_like == 1" class="w-22px h-22px" src="/image/dianzan.png" alt="" />
+      <img v-if="articleDetail.is_like == 1" class="w-22px h-22px" src="/image/icon_dianzan_sel@3x.png" alt="" />
       <img v-else class="w-22px h-22px" src="/image/dianzan.png" alt="" />
       <span class="mt-2px text-gray-500 text-xs ml-5px">{{ articleDetail.like || 0 }}</span>
     </div>
@@ -22,7 +22,6 @@ import { addLike, removeLike, transmitArticle, addCollect, removeCollect } from 
 export default {
   name: 'Control',
   props: {
-    articleId: String,
     articleDetail: Object,
     canLove: Boolean,
     loveActive: Boolean
@@ -30,42 +29,58 @@ export default {
   data() {
     return {}
   },
+  computed: {
+    articleId() {
+      return this.articleDetail?.id
+    }
+  },
   onLoad() {},
   created() {},
   methods: {
+    emitUpdate() {
+      this.$emit('update', this.articleId)
+    },
     handleTransmit() {
-      transmitArticle().then((res) => {
+      if (!this.articleId) return
+      transmitArticle(this.articleId).then((res) => {
         if (res.errno == 1) {
-          this.toast.success('成功')
+          this.toast.success('转发成功')
+          this.emitUpdate()
         }
       })
     },
     handleLike() {
-      if (this.articleDetail.is_like == 1) {
-        addLike().then((res) => {
+      if (!this.articleId) return
+      if (this.articleDetail.is_like == 0) {
+        addLike(this.articleId).then((res) => {
           if (res.errno == 1) {
-            this.toast.success('成功')
+            this.toast.success('点赞成功')
+            this.emitUpdate()
           }
         })
       } else {
-        removeLike().then((res) => {
+        removeLike(this.articleId).then((res) => {
           if (res.errno == 1) {
-            this.toast.success('成功')
+            this.toast.success('取消点赞')
+            this.emitUpdate()
           }
         })
       }
     },
     handleCollect() {
-      if (this.articleDetail.is_collect == 1) {
-        addCollect().then((res) => {
+      if (!this.articleId) return
+      if (this.articleDetail.is_collect == 0) {
+        addCollect(this.articleId).then((res) => {
           if (res.errno == 1) {
-            this.toast.success('成功')
+            this.toast.success('收藏成功')
+            this.emitUpdate()
           }
         })
       } else {
-        removeCollect().then((res) => {
+        removeCollect(this.articleId).then((res) => {
           if (res.errno == 1) {
-            this.toast.success('成功')
+            this.toast.success('取消收藏')
+            this.emitUpdate()
           }
         })
       }
