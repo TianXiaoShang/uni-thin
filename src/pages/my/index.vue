@@ -58,14 +58,17 @@ export default {
   },
   onLoad() {
     callGetUserInfo()
+
+    // getAttention().then((res) => {
+    //   console.log(res)
+    // })
+    // getHistory().then((res) => {
+    //   console.log(res)
+    // })
+  },
+  onShow() {
     getCommentTask().then((res) => {
       this.commentTask = res.data
-    })
-    getAttention().then((res) => {
-      console.log(res)
-    })
-    getHistory().then((res) => {
-      console.log(res)
     })
   },
   created() {},

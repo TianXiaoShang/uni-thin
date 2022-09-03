@@ -17,18 +17,18 @@
       :style="{ height: `calc(${getScrollViewHeight()} - 68px)` }"
     >
       <div class="p-4">
-        <div class="mb-4">
+        <div class="mb-4" v-for="item of listData" :key="item.id">
           <div class="p-4 rounded-lg mb-4 bg-white">
             <div class="flex">
-              <van-image round width="3rem" height="3rem" fit="cover" src="https://img.yzcdn.cn/vant/cat.jpeg" />
+              <van-image round width="3rem" height="3rem" fit="cover" :src="item.person_avatar" />
               <div class="ml-2 flex flex-col justify-between">
-                <div class="font-medium">ddd</div>
-                <div class="text-gray-400 text-sm">宇宙太阳系地球</div>
+                <div class="font-medium">{{ item.person_nickname }}</div>
+                <div class="text-gray-400 text-sm">{{ item.person_company }}</div>
               </div>
             </div>
             <van-divider />
             <div class="text-right">
-              <van-button type="primary" size="small" plain @click="handleEdit">去评价</van-button>
+              <van-button type="primary" size="small" plain @click="handleEdit(item.id)">去评价</van-button>
             </div>
           </div>
         </div>
@@ -57,16 +57,18 @@ export default {
       }
     }
   },
-  onLoad() {
-    this.getData()
+  onShow() {
+    this.onRefresh()
   },
+  onLoad() {},
   created() {},
   methods: {
     getData() {
       this.showLoading = true
       getCommentTask(this.keyword, this.pagination.page)
         .then((res) => {
-          this.listData = res.data.list
+          const { list = [] } = res.data
+          this.listData = [...this.listData, ...list]
           this.pagination.total = res.data.total || 0
         })
         .catch(() => {
@@ -87,11 +89,12 @@ export default {
     },
     onRefresh() {
       this.pagination.page = 1
+      this.listData = []
       this.getData()
     },
-    handleEdit() {
+    handleEdit(id) {
       uni.navigateTo({
-        url: `edit/index?id=${23}`,
+        url: `edit/index?id=${id}`,
         fail: (e) => {
           console.log(e)
         }

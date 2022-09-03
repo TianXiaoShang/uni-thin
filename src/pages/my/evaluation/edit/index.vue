@@ -14,10 +14,10 @@
       <div class="flex h-full flex-col">
         <div class="p-4 rounded-lg mb-4 bg-white">
           <div class="flex">
-            <van-image round width="3rem" height="3rem" fit="cover" src="https://img.yzcdn.cn/vant/cat.jpeg" />
+            <van-image round width="3rem" height="3rem" fit="cover" :src="evaluateData.avatar" />
             <div class="ml-2 flex flex-col justify-between">
-              <div class="font-medium">ddd</div>
-              <div class="text-gray-400 text-sm">宇宙太阳系地球</div>
+              <div class="font-medium">{{ evaluateData.realname }}</div>
+              <div class="text-gray-400 text-sm">{{ evaluateData.company }}</div>
             </div>
           </div>
         </div>
@@ -51,6 +51,7 @@
             class="fixed left-0 right-0"
             type="primary"
             block
+            :loading="loading"
             @click="handleSubmit"
             >提交</van-button
           >
@@ -77,7 +78,8 @@ export default {
       message: '',
       hidden: false,
       safeAreaBottom: 0,
-      evaluateData: {}
+      evaluateData: {},
+      taskData: {}
     }
   },
   onLoad(options) {
@@ -90,7 +92,8 @@ export default {
   methods: {
     getDetail() {
       getEvaluate(this.id).then((res) => {
-        this.evaluateData = res.data
+        this.evaluateData = res.data.person
+        this.taskData = res.data.task
       })
     },
     handleRateChange(e) {
@@ -103,9 +106,28 @@ export default {
       this.hidden = e.detail
     },
     handleSubmit() {
-      console.log(this.rate, this.message, this.hidden)
-
-      toEvaluate(this.id, this.rate, this.message).then((res) => {})
+      if (!this.rate) {
+        this.toast.fail('请打分')
+        return
+      }
+      if (!this.message) {
+        this.toast.fail('请输入评价')
+        return
+      }
+      this.loading = true
+      toEvaluate({
+        task_id: this.taskData.id,
+        grade: this.rate,
+        content: this.message,
+        is_anonymity: this.hidden ? 1 : 0
+      })
+        .then((res) => {
+          this.toast.success('评价成功')
+          uni.navigateBack({ delta: 1 })
+        })
+        .finally(() => {
+          this.loading = false
+        })
     }
   }
 }

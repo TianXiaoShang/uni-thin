@@ -23,7 +23,7 @@
             :key="item.id"
             class="p-4 rounded-lg mb-4 bg-white flex items-center justify-between"
           >
-            <div class="flex-1 flex">
+            <div class="flex-1 flex" @click.stop="handleDetail(item.person_id)">
               <van-image round width="3rem" height="3rem" fit="cover" :src="item.person_avatar" />
               <div class="ml-2 flex flex-col justify-between flex-1">
                 <div class="mb-2">
@@ -65,8 +65,9 @@ export default {
       }
     }
   },
-  onLoad() {
-    this.getData()
+  onLoad() {},
+  onShow() {
+    this.onRefresh()
   },
   created() {},
   methods: {
@@ -74,7 +75,8 @@ export default {
       this.showLoading = true
       getAttention(this.keyword, this.pagination.page)
         .then((res) => {
-          this.listData = res.data.list
+          const { list = [] } = res.data
+          this.listData = [...this.listData, ...list]
           this.pagination.total = res.data.total || 0
         })
         .catch(() => {
@@ -95,6 +97,7 @@ export default {
     },
     onRefresh() {
       this.pagination.page = 1
+      this.listData = []
       this.getData()
     },
     handleAttention(id) {
@@ -118,6 +121,14 @@ export default {
         // title: '标题',
         message: '确认取消关注?',
         beforeClose
+      })
+    },
+    handleDetail(id) {
+      uni.navigateTo({
+        url: `/pages/teacher/detail/index?id=${id}`,
+        fail: (e) => {
+          console.log(e)
+        }
       })
     }
   }
