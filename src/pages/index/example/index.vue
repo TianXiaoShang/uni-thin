@@ -24,17 +24,21 @@
           <div class="inner p-15px" @click="toExampleDetail(item.id)">
             <title :title="item.title" :number="15"></title>
             <div class="text-gray-400 text-sm mt-10px font-normal leading-5 text-content">
-              <u-parse :loading="false" :content="item.content" /></div>
+              <u-parse :loading="false" :content="item.content" />
+            </div>
             <images
               :sudoku="item.image_mode == 0"
               :images="item.image_mode == 0 ? item.across_picture : item.vertical_picture"
             ></images>
             <div class="tags flex flex-wrap mt-5px">
-              <div v-for="g of item.group_id" :key="g" class="mr-8px text-xs tag py-2px mt-5px px-8px"># {{ groupMap[g].title }}</div>
+              <div v-for="g of item.group_id" :key="g" class="mr-8px text-xs tag py-2px mt-5px px-8px">
+                # {{ groupMap[g].title }}
+              </div>
             </div>
           </div>
           <control :canLove="true" :article-detail="item" @update="handleUpdateArticle"></control>
         </div>
+        <van-empty v-if="!listData.length" description="暂无数据" />
       </div>
     </scroll-view>
   </view>
@@ -73,17 +77,21 @@ export default {
   created() {},
   methods: {
     getArticleOther() {
-      getArticleExtra(this.plateId).then((res) => {
-        const {group, marks} = res.data
-        const groupData = Object.keys(group).map(k => group[k])
-        const markData = Object.keys(marks).map(k => marks[k])
-        this.activeGroup = groupData?.[0]?.id
+      return getArticleExtra(this.plateId).then((res) => {
+        const { group, marks } = res.data
+        const groupData = Object.keys(group).map((k) => group[k])
+        const markData = Object.keys(marks).map((k) => marks[k])
         this.$store.commit('UPDATE_GROUP', groupData)
       })
     },
     getList() {
       this.loadDataLoading = true
-      getArticleList({ plate_id: this.plateId, keyword: this.keyword, group_id: '3', page: this.pagination.page })
+      getArticleList({
+        plate_id: this.plateId,
+        keyword: this.keyword,
+        group_id: this.activeGroup,
+        page: this.pagination.page
+      })
         .then((res) => {
           console.log(res)
           this.listData = res.data.list
@@ -99,7 +107,7 @@ export default {
     // 刷新和滚动至底部处理
     onRefresh() {
       this.pagination.page = 1
-      this.getData()
+      this.getList()
     },
     onScrolltolower() {
       if (this.listData.length >= this.pagination.total) return

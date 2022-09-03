@@ -38,7 +38,7 @@ import FilterBar from '@/component/filter-bar/index'
 import Title from '../example/component/title'
 import Control from '../example/component/control'
 import Images from '../example/component/images'
-import { getArticleDetail } from '@/apis'
+import { getArticleDetail, addVisit } from '@/apis'
 
 export default {
   name: 'Example',
@@ -54,10 +54,15 @@ export default {
   },
   onLoad(opt) {
     this.id = opt.id
+    this.addVisitRecord()
     this.getData()
   },
   created() {},
   methods: {
+    addVisitRecord() {
+      if (!this.id) return
+      addVisit(this.id)
+    },
     getData() {
       this.loadDataLoading = true
       getArticleDetail(this.id)
