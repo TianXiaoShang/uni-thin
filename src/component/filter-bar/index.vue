@@ -1,15 +1,8 @@
 <template>
   <view class="w-full bg-white box-border p-5px relative flex items-center" >
     <div class="tabs-list w-full box-border pr-42px overflow-y-hidden whitespace-nowrap overflow-x-scroll">
-      <div class="inline-block tag mr-8px bg-gray-100 px-12px py-3px rounded-md text-gray-500 text-sm" :class="{active: true}">5-10斤</div>
-      <div class="inline-block tag mr-8px bg-gray-100 px-12px py-3px rounded-md text-gray-500 text-sm">5-10斤</div>
-      <div class="inline-block tag mr-8px bg-gray-100 px-12px py-3px rounded-md text-gray-500 text-sm">5-10斤</div>
-      <div class="inline-block tag mr-8px bg-gray-100 px-12px py-3px rounded-md text-gray-500 text-sm">5-10斤</div>
-      <div class="inline-block tag mr-8px bg-gray-100 px-12px py-3px rounded-md text-gray-500 text-sm">5-10斤</div>
-      <div class="inline-block tag mr-8px bg-gray-100 px-12px py-3px rounded-md text-gray-500 text-sm">5-10斤</div>
-      <div class="inline-block tag mr-8px bg-gray-100 px-12px py-3px rounded-md text-gray-500 text-sm">5-10斤</div>
-      <div class="inline-block tag mr-8px bg-gray-100 px-12px py-3px rounded-md text-gray-500 text-sm">5-10斤</div>
-      <div class="inline-block tag mr-8px bg-gray-100 px-12px py-3px rounded-md text-gray-500 text-sm">5-15斤</div>
+      <div v-for="item of group" :key="item.id" class="inline-block tag mr-8px bg-gray-100 px-12px py-3px rounded-md text-gray-500 text-sm" :class="{active: groupId === item.id}" @click.stop="handleGroup(item.id)">{{item.title}}</div>
+      
     </div>
     <div @click="show = !show" class="icon bg-white w-80px absolute right-0 h-full top-0 flex justify-end items-center" 
       style="font-size:0; background: linear-gradient(to right, rgba(255,255,255,0.1),rgba(255,255,255,1), rgba(255,255,255,1));"
@@ -87,6 +80,10 @@
 import { getStatusBarInfo } from '@/util/index.js'
 export default {
   name: "Search",
+  props: {
+    group: {type: Array, value: () => []},
+    groupId: {type: String}
+  },
   data() {
     return {
       show: false,
@@ -100,6 +97,9 @@ export default {
     this.navBarHeight = navBarHeight
   },
   methods: {
+    handleGroup(id){
+      this.$emit('update-group', id)
+    },
     onClose(){
       console.log(1)
       this.show = false
