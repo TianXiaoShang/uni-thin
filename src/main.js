@@ -36,6 +36,12 @@ Vue.filter('date', function(value) {
     return timestampToTime(value);
 })
 
+Vue.filter('toFixed', function(value, digits = 1) {
+    const num = +value
+    if (Number.isNaN(num)) return value
+    return num.toFixed(digits)
+})
+
 Vue.prototype.$onLaunched = new Promise(resolve => {
     Vue.prototype.$isResolve = resolve
 })
