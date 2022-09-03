@@ -4,7 +4,7 @@
     <van-toast id="van-toast" />
     <loading v-show="loadDataLoading" />
     <nav-bar showBack :title="'成功案例'" :titlePos="'center'"></nav-bar>
-    <filter-bar :group="group" :group-id="activeGroup" @update-group="handleUpdateGroup"></filter-bar>
+    <filter-bar :filter-data="filterData" :group-id="activeGroup" @update-group="handleUpdateGroup"></filter-bar>
     <scroll-view
       :refresher-enabled="false"
       :refresher-triggered="triggered"
@@ -66,20 +66,28 @@ export default {
         total: 0,
         page: 1
       },
-      activeGroup: ''
+      activeGroup: '',
+      filterData: []
     }
   },
   onLoad(opt) {
     this.plateId = opt.id
+    this.getConditionData()
     this.getArticleOther()
     this.getList()
   },
   created() {},
   methods: {
+    getConditionData() {
+      getGroup(this.plateId).then((res) => {
+        const { group = [], children = {} } = res.data
+        group.forEach((d) => {
+          d.children = children[d.id] || []
+        })
+        this.filterData = group
+      })
+    },
     getArticleOther() {
-      // getGroup(this.plateId).then((res) => {
-      //   console.log(res)
-      // })
       return getArticleExtra(this.plateId).then((res) => {
         const { group, marks } = res.data
         const groupData = Object.keys(group).map((k) => group[k])
@@ -97,8 +105,8 @@ export default {
         page: this.pagination.page
       })
         .then((res) => {
-          console.log(res)
-          this.listData = res.data.list
+          const { list = [] } = res.data
+          this.listData = [...this.listData, ...list]
           this.pagination.total = res.data.total || 0
         })
         .catch(() => {
@@ -111,6 +119,7 @@ export default {
     // 刷新和滚动至底部处理
     onRefresh() {
       this.pagination.page = 1
+      this.listData = []
       this.getList()
     },
     onScrolltolower() {
