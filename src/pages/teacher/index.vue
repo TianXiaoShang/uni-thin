@@ -99,7 +99,8 @@ export default {
       this.showLoading = true
       getTeamList(this.activeTag, this.keyword, this.pagination.page)
         .then((res) => {
-          this.listData = res.data.list
+          const { list = [] } = res.data
+          this.listData = [...this.listData, ...list]
           this.pagination.total = res.data.total || 0
         })
         .catch(() => {
@@ -120,12 +121,12 @@ export default {
     },
     onRefresh() {
       this.pagination.page = 1
+      this.listData = []
       this.getData()
     },
     handleTag(id) {
-      this.activeTag = id
-      this.pagination.page = 1
-      this.getData()
+      this.activeTag = id == this.activeTag ? '' : id
+      this.onRefresh()
     },
     handleDetail(id) {
       uni.navigateTo({

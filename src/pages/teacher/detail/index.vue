@@ -69,6 +69,7 @@
           </div>
           <van-divider v-if="i < commentList.length - 1" />
         </div>
+        <van-empty v-if="!commentList.length" description="暂无数据" />
       </scroll-view>
     </div>
   </view>
