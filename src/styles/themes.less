@@ -2,6 +2,7 @@
 
 // vant 变量
 page {
+  --my-primary-color: @my-primary-color;
   // 按钮
   --button-primary-background-color: @my-primary-color;
   --button-primary-border-color: @my-primary-color;
@@ -12,4 +13,14 @@ page {
   // tags
   --tag-text-color: @my-primary-color;
   --tag-primary-color: rgba(@my-primary-color, 0.1);
+}
+
+van-dialog {
+  .van-dialog__footer {
+    .van-dialog__button {
+      .dialog-index--van-dialog__confirm.van-button {
+        color: @my-primary-color !important;
+      }
+    }
+  }
 }
