@@ -13,7 +13,7 @@
       :style="{ height: `calc(${getScrollViewHeight(true, true, true, 39)})` }"
     >
       <div class="p-15px pb-15px">
-        <title :title="articleDetail.title" :number="15"></title>
+        <title :title="articleDetail.title" :number="markMap[item.mark_id].title"></title>
         <div class="text-gray-400 text-sm mt-10px font-normal leading-5">
           <u-parse :loading="false" :content="articleDetail.content" />
         </div>
@@ -43,7 +43,7 @@ import { getArticleDetail, addVisit } from '@/apis'
 export default {
   name: 'Example',
   computed: {
-    ...mapGetters(['groupMap'])
+    ...mapGetters(['groupMap', 'markMap'])
   },
   components: { FilterBar, Title, Images, Control },
   data() {

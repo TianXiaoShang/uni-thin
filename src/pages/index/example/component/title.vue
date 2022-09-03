@@ -3,9 +3,9 @@
     <div class="text-lg">
         {{title || ''}}
     </div>
-    <div class="icon -mr-15px pl-15px text-white" :style="{width: number.length + 2 + 'em', height: '30px', 'text-align': center, 'line-height': '30px'}">
-        -{{number}}
-        <span class="text-xs">斤</span>
+    <div class="icon -mr-15px pl-15px text-white text-center" :style="{width: number.length + 2 + 'em', height: '30px', 'text-align': center, 'line-height': '30px'}">
+        {{number}}
+        <!-- <span class="text-xs">斤</span> -->
     </div>
   </view>
 </template>

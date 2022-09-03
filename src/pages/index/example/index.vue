@@ -22,7 +22,7 @@
           :key="item.id"
         >
           <div class="inner p-15px" @click="toExampleDetail(item.id)">
-            <title :title="item.title" :number="15"></title>
+            <title :title="item.title" :number="markMap[item.mark_id].title"></title>
             <div class="text-gray-400 text-sm mt-10px font-normal leading-5 text-content">
               <u-parse :loading="false" :content="item.content" />
             </div>
@@ -50,11 +50,11 @@ import FilterBar from '@/component/filter-bar/index'
 import Title from './component/title'
 import Control from './component/control'
 import Images from './component/images'
-import { getArticleExtra, getArticleList, getArticleDetail } from '@/apis'
+import { getArticleExtra, getArticleList, getArticleDetail, getGroup } from '@/apis'
 export default {
   name: 'Example',
   computed: {
-    ...mapGetters(['groupMap', 'group'])
+    ...mapGetters(['groupMap', 'group', 'markMap'])
   },
   components: { FilterBar, Title, Images, Control },
   data() {
@@ -77,11 +77,15 @@ export default {
   created() {},
   methods: {
     getArticleOther() {
+      // getGroup(this.plateId).then((res) => {
+      //   console.log(res)
+      // })
       return getArticleExtra(this.plateId).then((res) => {
         const { group, marks } = res.data
         const groupData = Object.keys(group).map((k) => group[k])
         const markData = Object.keys(marks).map((k) => marks[k])
         this.$store.commit('UPDATE_GROUP', groupData)
+        this.$store.commit('UPDATE_MARK_DATA', markData)
       })
     },
     getList() {
