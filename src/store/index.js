@@ -11,7 +11,8 @@ const store = new Vuex.Store({
     token: null,
     logining: false,
     userInfo: {}, // 储存来自weixin授权的用户信息（头像信息等）
-    group: []
+    group: [],
+    teamGroup: []
   },
   getters: {
     loginStatus: (state) => state.loginStatus,
@@ -21,6 +22,11 @@ const store = new Vuex.Store({
     group: (state) => state.group,
     groupMap: (state) =>
       state.group?.reduce((obj, d) => {
+        obj[d.id] = d
+        return obj
+      }, {}),
+    teamGroupMap: (state) =>
+      state.teamGroup?.reduce((obj, d) => {
         obj[d.id] = d
         return obj
       }, {})
@@ -45,6 +51,9 @@ const store = new Vuex.Store({
     },
     UPDATE_GROUP(state, value) {
       state.group = value
+    },
+    UPDATE_TEAM_GROUP(state, value) {
+      state.teamGroup = value
     }
   }
 })
