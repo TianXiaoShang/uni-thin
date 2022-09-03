@@ -83,7 +83,7 @@ export function getArticleList(params) {
  * @returns {Promise}
  */
 export function getArticleDetail(id) {
-  return request('message.article', { id, openid: store.getters.openId }, 'GET')
+  return request('message.article_detail', { id, openid: store.getters.openId }, 'GET')
 }
 
 // ========================  用户操作/列表  =============================
