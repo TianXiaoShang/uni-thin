@@ -4,7 +4,7 @@
     <van-toast id="van-toast" />
     <loading v-show="showLoading" />
     <nav-bar type="search" :titlePos="'center'" @search="onSearch"></nav-bar>
-    <div class="tabs-list w-full box-border pr-42px overflow-y-hidden whitespace-nowrap overflow-x-scroll bg-white">
+    <div class="tabs-list w-full box-border px-4 pb-1 overflow-y-hidden whitespace-nowrap overflow-x-scroll bg-white">
       <div
         v-for="item of teamTags"
         :key="item.id"
@@ -22,7 +22,7 @@
       @refresherrefresh="onRefresh"
       @scrolltolower="onScrolltolower"
       :scroll-y="true"
-      :style="{ height: `calc(${getScrollViewHeight(true, true, true, 26)})` }"
+      :style="{ height: `calc(${getScrollViewHeight(true, true, true, 30)})` }"
     >
       <div class="p-4">
         <div
