@@ -66,7 +66,7 @@ export default {
   name: 'Search',
   props: {
     filterData: { type: Array, value: () => [] },
-    groupId: { type: String }
+    groupIds: { type: Array }
   },
   computed: {
     group() {
@@ -89,6 +89,7 @@ export default {
     const { statusBarHeight, navBarHeight, contentWidth } = getStatusBarInfo()
     this.statusBarHeight = statusBarHeight
     this.navBarHeight = navBarHeight
+    this.selectedKeys = this.groupIds || []
   },
   methods: {
     handleGroup(id) {
@@ -112,8 +113,8 @@ export default {
       this.handleConfirm()
     },
     handleConfirm() {
-      console.log(this.selectedKeys)
       this.show = false
+      this.$emit('confirm', this.selectedKeys.slice())
     }
   }
 }

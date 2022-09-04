@@ -4,7 +4,7 @@
     <van-toast id="van-toast" />
     <loading v-show="loadDataLoading" />
     <nav-bar showBack :title="'成功案例'" :titlePos="'center'"></nav-bar>
-    <filter-bar :filter-data="filterData" :group-id="activeGroup" @update-group="handleUpdateGroup"></filter-bar>
+    <filter-bar :filter-data="filterData" :group-ids="activeGroups" @confirm="handleUpdateGroup"></filter-bar>
     <scroll-view
       :refresher-enabled="false"
       :refresher-triggered="triggered"
@@ -66,7 +66,7 @@ export default {
         total: 0,
         page: 1
       },
-      activeGroup: '',
+      activeGroups: [],
       filterData: []
     }
   },
@@ -101,7 +101,7 @@ export default {
       getArticleList({
         plate_id: this.plateId,
         keyword: this.keyword,
-        group_id: this.activeGroup,
+        group_id: this.activeGroups.join(','),
         page: this.pagination.page
       })
         .then((res) => {
@@ -132,8 +132,9 @@ export default {
         url: `/pages/index/example-detail/index?id=${id}`
       })
     },
-    handleUpdateGroup(id) {
-      this.activeGroup = id
+    handleUpdateGroup(ids) {
+      console.log(ids);
+      this.activeGroups = ids
       this.onRefresh()
     },
     handleUpdateArticle(id) {
